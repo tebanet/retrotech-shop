@@ -4,8 +4,8 @@
   "description": "e-shop for retro technology products",
   "main": "server.js",
   "scripts": {
-    "start": "npm start",
-    "initDB": "node ./db/init_db.js"
+    "start": "nodemon server.js",
+    "initDB": "node ./db/initDB.js"
   },
   "repository": {
     "type": "git",
