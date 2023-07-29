@@ -14,6 +14,8 @@ const initDb = async () => {
 
     await pool.query('CREATE DATABASE retrotech_shop;');
 
+    await pool.query('USE retrotech_shop');
+
     console.log('Creando tabla de usuarios');
 
     await pool.query(
@@ -22,7 +24,7 @@ const initDb = async () => {
         username VARCHAR(30) UNIQUE NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
-        profile_pic VARCHAR(255) NOT NULL,
+        profile_pic VARCHAR(255),
         role ENUM('admin', 'user') DEFAULT 'user',
         registrationCode VARCHAR(100),
         recoveryPassCode VARCHAR(100),
@@ -52,10 +54,10 @@ const initDb = async () => {
     console.log('Creando administradores en la tabla users');
     await pool.query(`
     INSERT INTO users (email, username, password, active, role)
-      VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
-            ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
-            ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
-            ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
+    VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
+          ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
+          ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
+          ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
 
     process.exit(0);
   } catch (error) {
