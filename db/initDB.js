@@ -2,20 +2,22 @@ require('dotenv').config();
 
 const getDB = require('./getDB.js');
 
-const init = async () => {
-  let connection;
-
+const initDb = async () => {
   try {
-    connection = await getDB();
+    const pool = await getDB();
 
-    console.log('Borrando tablas');
-    await connection.query('DROP TABLE IF EXISTS entries');
-    await connection.query('DROP TABLE IF EXISTS users');
+    console.log('Eliminando base de datos si existe');
 
-    console.log('Creando tablas');
-    console.log('Creando tabla users');
-    await connection.query(`
-      CREATE TABLE IF NOT EXISTS users(
+    await pool.query('DROP DATABASE IF EXISTS retrotech_shop;');
+
+    console.log('Creando base de datos');
+
+    await pool.query('CREATE DATABASE retrotech_shop;');
+
+    console.log('Creando tabla de usuarios');
+
+    await pool.query(
+      `CREATE TABLE users (
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(30) UNIQUE NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
@@ -27,12 +29,13 @@ const init = async () => {
         active BOOLEAN DEFAULT false,
         createdAt DATETIME NOT NULL DEFAULT NOW(),
         modifiedAt DATETIME
-      )
-    `);
+      );`
+    );
 
-    console.log('Creando tabla products');
-    await connection.query(`
-      CREATE TABLE IF NOT EXISTS product(
+    console.log('Creando tabla de productos');
+
+    await pool.query(
+      `CREATE TABLE IF NOT EXISTS product(
         product_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         product_title VARCHAR(50) NOT NULL,
         product_image VARCHAR(255) NOT NULL,
@@ -43,24 +46,22 @@ const init = async () => {
         createdAt DATETIME NOT NULL,
         FOREIGN KEY (userId) REFERENCES users(id)
       );
-    `);
+    `
+    );
 
     console.log('Creando administradores en la tabla users');
-    await connection.query(`
+    await pool.query(`
     INSERT INTO users (email, username, password, active, role)
       VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
-            ('kaysera0@icloud.com, 'kaysera14'', '1234abcd!', 1, 'admin'),
-            ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin');
-            ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');
- `);
+            ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
+            ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
+            ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
 
-    console.log('Tablas creadas');
+    process.exit(0);
   } catch (error) {
     console.error(error);
-  } finally {
-    if (connection) connection.release();
-    process.exit();
+    process.exit(1);
   }
 };
 
-init();
+initDb();
