@@ -13,6 +13,16 @@ app.use(bodyParser.json());
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
 
+
+// Middleware de 404
+app.use((req,res) => {
+  res.status(404)
+  res.send({
+    status: 'error',
+    message: 'Not found',
+  })
+})
+
 app.listen(
   port,
   () => `El servidor se está ejecutando en: http://localhost:${port}`
