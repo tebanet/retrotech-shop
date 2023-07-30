@@ -16,8 +16,8 @@ const initDb = async () => {
 
     await pool.query('USE retrotech_shop');
 
-    console.log('Creando tabla de usuarios');
 
+    console.log('Creando tabla de usuarios');
     await pool.query(
       `CREATE TABLE users (
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -34,22 +34,59 @@ const initDb = async () => {
       );`
     );
 
-    console.log('Creando tabla de productos');
 
+    console.log('Creando tabla de productos');
     await pool.query(
-      `CREATE TABLE IF NOT EXISTS product(
-        product_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-        product_title VARCHAR(50) NOT NULL,
-        product_image VARCHAR(255) NOT NULL,
-        price DECIMAL(10,2),
-        description TEXT NOT NULL,
-        place_of_sale VARCHAR(50) NOT NULL,
-        userId INT UNSIGNED NOT NULL,
-        createdAt DATETIME NOT NULL,
-        FOREIGN KEY (userId) REFERENCES users(id)
-      );
-    `
-    );
+    `CREATE TABLE IF NOT EXISTS product(
+     product_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+     product_title VARCHAR(50) NOT NULL,
+     product_image VARCHAR(255) NOT NULL,
+     category ENUM('videogame', 'pc', 'acessories', 'photo/video') NOT NULL,
+     description VARCHAR(1000) NOT NULL,
+     price DECIMAL(10,2),
+     place_of_sale ENUM('online', 'delivery') NOT NULL,
+     id_seller INT UNSIGNED NOT NULL,
+     createdAt DATETIME NOT NULL DEFAULT NOW(),
+     FOREIGN KEY (id_seller) REFERENCES users(id)
+     );
+    `);
+
+    
+    console.log('Creando tabla de pedidos');
+    await pool.query(
+      `CREATE TABLE orders (
+        order_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        id_buyer INT UNSIGNED NOT NULL,
+        id_seller INT UNSIGNED NOT NULL,
+        id_product INT UNSIGNED NOT NULL,
+        delivery_status ENUM('delivered', 'bounced', 'delayed') NOT NULL,
+        delivery_date DATETIME NOT NULL,
+        delivery_place VARCHAR(50) NOT NULL,
+        FOREIGN KEY (id_buyer) REFERENCES users(id),
+        FOREIGN KEY (id_seller) REFERENCES users(id),
+        FOREIGN KEY (id_product) REFERENCES product(product_id)
+      );`
+    )
+
+    console.log('Creando tabla de valoraciones');
+    await pool.query(
+      `CREATE TABLE valoraciones (
+        id_valoracion INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        id_buyer INT UNSIGNED NOT NULL,
+        id_seller INT UNSIGNED NOT NULL,
+        id_product INT UNSIGNED NOT NULL,
+        valoracion INT UNSIGNED NOT NULL,
+        comentaries VARCHAR(200) NOT NULL,
+        valoracion_date DATETIME NOT NULL,
+        FOREIGN KEY (id_product) REFERENCES product(product_id),
+        FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
+        FOREIGN KEY (id_seller) REFERENCES orders(id_seller)
+      );`
+    )
+
+
+    
+////////************************************************************** */
 
     console.log('Creando administradores en la tabla users');
     await pool.query(`
@@ -58,6 +95,22 @@ const initDb = async () => {
           ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
           ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
           ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
+
+
+
+    console.log('Creando productos en la tabla productos');
+    await pool.query(`
+    INSERT INTO product(product_title, product_image, category, price, description, place_of_sale, id_seller)
+    VALUES('MasterSystem', 'img_1', 'videogame', '250.00', '1986 Home Video Game Console', 'online', 1),
+          ('Playstation1', 'img_2', 'videogame', '135.00', '2000 Home Video Game Console', 'delivery',2),
+          ('Pentium1', 'img_3', 'pc', '335.00', '1988 Home Pc', 'delivery',3),
+          ('Macintosh I', 'img_4', 'pc', '298.00', '1985 Apple Home Pc', 'online',2),
+          ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'delivery',3),
+          ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'online',1)
+    ;
+    `
+    );
+
 
     process.exit(0);
   } catch (error) {
