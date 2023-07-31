@@ -21,6 +21,7 @@ const loginUser = async (req, res, next) => {
     if (!isPasswordOk) {
       generateError('El email o la contraseña son incorrectos', 400);
     }
+
     const { id, username } = userDB;
 
     const tokenPayLoad = { id, username, email };
