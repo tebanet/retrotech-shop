@@ -7,6 +7,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const { port } = require('./config');
 
+const { getPosts } = require();
+const { postUsers } = require();
+
+app.get("", getPosts);
+app.post("", postUsers);
+
 // Middleware que analiza json y examina las solicitudes en las que el encabezado Content-Type coincide con la opción de tipo.
 app.use(bodyParser.json());
 
