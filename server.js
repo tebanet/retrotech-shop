@@ -7,27 +7,36 @@ const bodyParser = require('body-parser');
 const app = express();
 const { port } = require('./config');
 
-const { getPosts } = require();
-const { postUsers } = require();
+const { postUsers, loginUser } = require('./controllers/users');
 
-app.get("", getPosts);
-app.post("", postUsers);
+// Rutas de Usuario
+app.post('/users', postUsers);
+app.post('/users/login', loginUser);
 
 // Middleware que analiza json y examina las solicitudes en las que el encabezado Content-Type coincide con la opción de tipo.
+app.use(express.json());
 app.use(bodyParser.json());
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
 
-
 // Middleware de 404
-app.use((req,res) => {
-  res.status(404)
-  res.send({
-    status: 'error',
-    message: 'Not found',
-  })
-})
+app.use((error, req, res, next) => {
+  console.error(error);
+
+  // Si el error tiene el nombre "ValidationError", quiere decir que es un error tirado por Joi, así que le ponemos un statusCode 400
+  if (error.name === 'ValidationError') {
+    error.statusCode = 400;
+  }
+
+  res
+    .status(error.statusCode || 500)
+    .send({ status: 'error', message: error.message });
+});
+
+app.use((req, res) => {
+  res.status(404).send({ status: 'error', message: 'Not found' });
+});
 
 app.listen(
   port,

@@ -16,7 +16,6 @@ const initDb = async () => {
 
     await pool.query('USE retrotech_shop');
 
-
     console.log('Creando tabla de usuarios');
     await pool.query(
       `CREATE TABLE users (
@@ -34,10 +33,9 @@ const initDb = async () => {
       );`
     );
 
-
     console.log('Creando tabla de productos');
     await pool.query(
-    `CREATE TABLE IF NOT EXISTS product(
+      `CREATE TABLE IF NOT EXISTS product(
      product_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
      product_title VARCHAR(50) NOT NULL,
      product_image VARCHAR(255) NOT NULL,
@@ -49,9 +47,9 @@ const initDb = async () => {
      createdAt DATETIME NOT NULL DEFAULT NOW(),
      FOREIGN KEY (id_seller) REFERENCES users(id)
      );
-    `);
+    `
+    );
 
-    
     console.log('Creando tabla de pedidos');
     await pool.query(
       `CREATE TABLE orders (
@@ -66,7 +64,7 @@ const initDb = async () => {
         FOREIGN KEY (id_seller) REFERENCES users(id),
         FOREIGN KEY (id_product) REFERENCES product(product_id)
       );`
-    )
+    );
 
     console.log('Creando tabla de valoraciones');
     await pool.query(
@@ -82,21 +80,15 @@ const initDb = async () => {
         FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
         FOREIGN KEY (id_seller) REFERENCES orders(id_seller)
       );`
-    )
+    );
 
-
-    
-////////************************************************************** */
-
-    console.log('Creando administradores en la tabla users');
+    /* console.log('Creando administradores en la tabla users');
     await pool.query(`
     INSERT INTO users (email, username, password, active, role)
     VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
           ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
           ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
           ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
-
-
 
     console.log('Creando productos en la tabla productos');
     await pool.query(`
@@ -108,9 +100,7 @@ const initDb = async () => {
           ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'delivery',3),
           ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'online',1)
     ;
-    `
-    );
-
+    `); */
 
     process.exit(0);
   } catch (error) {

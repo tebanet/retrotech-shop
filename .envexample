@@ -1,0 +1,11 @@
+#server
+PORT=3000
+
+#db
+MYSQL_HOST=your host
+MYSQL_USER=your user
+MYSQL_PASSWORD= your pass
+MYSQL_DATABASE=your database
+
+# JWT
+SECRET=ssssssssssssssssssssssshhhhhhhhhhhhhhhhh
