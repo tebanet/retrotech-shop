@@ -19,4 +19,4 @@ async function getDB() {
   return pool;
 }
 
-module.exports = { getDB };
+module.exports = getDB;

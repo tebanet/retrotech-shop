@@ -1,3 +1,3 @@
 const generateError = require('./generateError');
 
-module.exports = { generateError };
+module.exports = generateError;

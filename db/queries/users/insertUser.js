@@ -12,4 +12,4 @@ const insertUser = async ({ email, password, username }) => {
   return insertID;
 };
 
-module.exports = { insertUser };
+module.exports = insertUser;
