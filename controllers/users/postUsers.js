@@ -18,8 +18,6 @@ const postUsers = async (req, res, next) => {
 
     const createdUser = await selectUserById(userId);
 
-    delete createdUser.password;
-
     res.status(201).send({ status: 'ok', data: createdUser });
   } catch (error) {
     next(error);
