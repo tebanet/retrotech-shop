@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const newUserSchema = require('../../schemas/users');
+const newUserSchema = require('../../schemas/users/newUser.js');
 const { insertUser, selectUserById } = require('../../db/queries/users');
 
 const postUsers = async (req, res, next) => {
@@ -10,7 +10,10 @@ const postUsers = async (req, res, next) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userId = await insertUser({ ...req.body, password: hashedPassword });
+    const userId = await insertUser({
+      ...req.body,
+      password: hashedPassword,
+    });
 
     const createdUser = await selectUserById(userId);
 
