@@ -4,7 +4,7 @@ const { insertUser, selectUserById } = require('../../db/queries/users');
 
 const postUsers = async (req, res, next) => {
   try {
-    await newUserSchema.validateAsync(req.body);
+    //await newUserSchema.validateAsync(req.body);
 
     const { password } = req.body;
 

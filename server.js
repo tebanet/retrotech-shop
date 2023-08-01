@@ -9,13 +9,13 @@ const { port } = require('./config');
 
 const { postUsers, loginUser } = require('./controllers/users');
 
-// Rutas de Usuario
-app.post('/users', postUsers);
-app.post('/users/login', loginUser);
-
 // Middleware que analiza json y examina las solicitudes en las que el encabezado Content-Type coincide con la opción de tipo.
 app.use(express.json());
 app.use(bodyParser.json());
+
+// Rutas de Usuario
+app.post('/users', postUsers);
+app.post('/users/login', loginUser);
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
