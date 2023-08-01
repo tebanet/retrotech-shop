@@ -10,4 +10,4 @@ const selectUserById = async (id) => {
   return user;
 };
 
-module.exports = selectUserById;
+module.exports = { selectUserById };

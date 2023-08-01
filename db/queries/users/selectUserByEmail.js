@@ -12,4 +12,4 @@ const selectUserByEmail = async (email) => {
   return user;
 };
 
-module.exports = selectUserByEmail;
+module.exports = { selectUserByEmail };
