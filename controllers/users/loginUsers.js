@@ -28,9 +28,9 @@ const loginUser = async (req, res, next) => {
 
     const expiresIn = '30d';
 
-    jwt.sign(tokenPayLoad, process.env.SECRET, { expiresIn });
+    const token = jwt.sign(tokenPayLoad, process.env.SECRET, { expiresIn });
 
-    res.send({ status: 'ok', data: { tokenPayLoad, expiresIn } });
+    res.send({ status: 'ok', data: { tokenPayLoad, expiresIn } , token });
   } catch (error) {
     next(error);
   }

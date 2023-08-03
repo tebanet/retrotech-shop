@@ -42,6 +42,7 @@ const initDb = async () => {
      category ENUM('videogame', 'pc', 'acessories', 'photo/video') NOT NULL,
      description VARCHAR(1000) NOT NULL,
      price DECIMAL(10,2),
+     status ENUM('reserved', 'available', 'sold out') NOT NULL,
      place_of_sale ENUM('online', 'delivery') NOT NULL,
      id_seller INT UNSIGNED NOT NULL,
      createdAt DATETIME NOT NULL DEFAULT NOW(),
