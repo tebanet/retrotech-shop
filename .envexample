@@ -9,3 +9,7 @@ MYSQL_DATABASE=your database
 
 # JWT
 SECRET=ssssssssssssssssssssssshhhhhhhhhhhhhhhhh
+
+# SendGrid
+SMTP_USER=mail@mail.com
+SENDGRID_KEY=shhhhhhhhhhhhhhhhsh
