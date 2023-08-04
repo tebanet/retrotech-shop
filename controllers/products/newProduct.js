@@ -8,7 +8,7 @@ const {nanoid} = require('nanoid')
 const newProductController = async (req,res,next) => {
     try {
         
-        const {product_title, product_image, category, price, description, status, place_of_sale} = req.body
+        const {product_title, product_image, category, price, description, status, location,place_of_sale} = req.body
 
     if (!price) {
         throw generateError("O produto não tem preço, por favor insira em conformidade", 400)
@@ -33,7 +33,7 @@ const newProductController = async (req,res,next) => {
          await image.toFile(path.join(uploadsDir, imageFileName))
     }
 
-    const id = await createProduct(product_title, imageFileName, category, price, description, status, place_of_sale, req.userId);
+    const id = await createProduct(product_title, imageFileName, category, price, description, status, place_of_sale, location, req.userId);
         res.send({
             status: 'ok',
             message: `Produto com id :${id} criado com sucesso`

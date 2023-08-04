@@ -17,10 +17,13 @@ const postUsers = require('./controllers/users/postUsers.js');
 const loginUser = require('./controllers/users/loginUsers.js');
 
 // Products controllers
+const getProductByName = require('./controllers/products/getProductByName.js')
+const getProductByCategory = require('./controllers/products/getProductByCategory.js')
 const getSingleProduct = require('./controllers/products/getSingleProduct.js');
 const getProducts = require('./controllers/products/getProducts.js');
 const newProduct = require('./controllers/products/newProduct.js');
 const deletesingleProduct = require('./controllers/products/deleteProduct.js');
+const getProductByPrice = require('./controllers/products/getProductByPrice.js')
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload())
@@ -37,9 +40,13 @@ app.post('/users/login', loginUser);
 
 // Rotas de Produtos
 app.post('/', authUser, newProduct);          //middleware associado para autenticação
-app.get('/', getProducts);  
-app.get('/product/:id', getSingleProduct);
+app.get('/', getProducts);
+app.get('/product/name/:letter', getProductByName); 
+app.get('/product/price/:min-:max', getProductByPrice); 
+app.get('/product/category/:letter', getProductByCategory);
+app.get('/product/id/:id', getSingleProduct);
 app.delete('/product/:id',authUser, deletesingleProduct)
+app.get('/product/:')
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
