@@ -24,6 +24,8 @@ const initDb = async () => {
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
         profile_pic VARCHAR(255),
+        bio VARCHAR(255),
+        address VARCHAR(100),
         role ENUM('admin', 'user') DEFAULT 'user',
         registrationCode VARCHAR(100),
         recoveryPassCode VARCHAR(100),
