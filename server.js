@@ -37,7 +37,7 @@ app.use(express.json());
 app.post('/users', postUsers);
 app.post('/users/login', loginUser);
 app.get('/users/validate/:registrationCode', validateUser);
-app.put('/users/update/:id', updateUserProfile);
+app.put('/users/update/:id', authUser, updateUserProfile);
 
 // Rotas de Produtos
 app.post('/', authUser, newProduct); //middleware associado para autenticação

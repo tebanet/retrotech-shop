@@ -13,11 +13,7 @@ const updateUserProfile = async (req, res) => {
 
     await updateUserSchema.validateAsync(req.body);
 
-    // Si el usuario quiere cambiar la contraseña, hashearla nuevamente.
     let hashedPassword;
-    if (password) {
-      hashedPassword = await bcrypt.hash(password, 10);
-    }
 
     const user = await selectUserById(id);
 
@@ -35,19 +31,17 @@ const updateUserProfile = async (req, res) => {
     }
 
     if ('password' in req.body) {
-      // Hash the new password before saving it
       user.hashedPassword = await bcrypt.hash(req.body.password, 10);
     }
 
     if (req.files?.profile_pic) {
       const profilePicPath = path.join(profilePicsPath, `user${id}.jpg`);
       await sharp(req.files.profile_pic.data)
-        .resize(200, 200) // Adjust the size as per your requirement
+        .resize(200, 200)
         .toFile(profilePicPath);
       user.profile_pic = profilePicPath;
     }
 
-    // Call the modifyUser function to update the user in the database
     const rowsAffected = await modifyUser(
       id,
       user.email,
@@ -60,8 +54,6 @@ const updateUserProfile = async (req, res) => {
     if (rowsAffected === 0) {
       return res.status(500).json({ error: 'Failed to update user' });
     }
-
-    // Respond with the updated user
     return res.json(user);
   } catch (error) {
     console.error('Error al actualizar el perfil:', error);
