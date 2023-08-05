@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const selectUserByEmail = require('../../db/queries/users/selectUserByEmail.js');
-const generateError = require('../../helpers/generateError.js');
+const { generateError } = require('../../helpers/generateError.js');
 const loginUserSchema = require('../../schemas/users/loginUsers.js');
 
 const loginUser = async (req, res, next) => {
@@ -13,20 +13,17 @@ const loginUser = async (req, res, next) => {
     const userDB = await selectUserByEmail(email);
 
     if (!userDB) {
-      const errorMessage = 'El email o la contraseña son incorrectos';
-      generateError(errorMessage, 400);
+      throw generateError('El email o la contraseña son incorrectos', 400);
     }
 
     if (userDB.active !== 1) {
-      const errorMessage = 'El usuario no está activo';
-      generateError(errorMessage, 400);
+      throw generateError('El usuario no está activo', 400);
     }
 
     const isPasswordOk = await bcrypt.compare(password, userDB.password);
 
     if (!isPasswordOk) {
-      const errorMessage = 'El email o la contraseña son incorrectos';
-      generateError(errorMessage, 400);
+      throw generateError('El email o la contraseña son incorrectos', 400);
     }
 
     const { id, username } = userDB;
