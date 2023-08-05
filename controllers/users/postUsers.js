@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const newUserSchema = require('../../schemas/users/newUser.js');
 const insertUser = require('../../db/queries/users/insertUser.js');
-const selectUserById = require('../../db/queries/users/selectUserById.js');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
 const { port } = require('../../config.js');
@@ -13,7 +12,7 @@ const postUsers = async (req, res, next) => {
   try {
     await newUserSchema.validateAsync(req.body);
 
-    const { email, username, password } = req.body;
+    const { email, username, password, createdAt } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -25,7 +24,7 @@ const postUsers = async (req, res, next) => {
       registrationCode: registrationCode,
     });
 
-    const createdUser = await selectUserById(userId);
+    const createdUser = { username, email, createdAt };
 
     // Enviar el correo de validación
     const msg = {
@@ -39,7 +38,11 @@ const postUsers = async (req, res, next) => {
 
     res.status(201).send({ status: 'ok', data: createdUser });
   } catch (error) {
-    next(error);
+    console.error('Error al crear el perfil de usuario:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Error al crear el perfil de usuario.',
+    });
   }
 };
 

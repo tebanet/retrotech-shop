@@ -13,13 +13,20 @@ const loginUser = async (req, res, next) => {
     const userDB = await selectUserByEmail(email);
 
     if (!userDB) {
-      generateError('El email o la contraseña son incorrectos', 400);
+      const errorMessage = 'El email o la contraseña son incorrectos';
+      generateError(errorMessage, 400);
+    }
+
+    if (userDB.active !== 1) {
+      const errorMessage = 'El usuario no está activo';
+      generateError(errorMessage, 400);
     }
 
     const isPasswordOk = await bcrypt.compare(password, userDB.password);
 
     if (!isPasswordOk) {
-      generateError('El email o la contraseña son incorrectos', 400);
+      const errorMessage = 'El email o la contraseña son incorrectos';
+      generateError(errorMessage, 400);
     }
 
     const { id, username } = userDB;
@@ -30,9 +37,13 @@ const loginUser = async (req, res, next) => {
 
     const token = jwt.sign(tokenPayLoad, process.env.SECRET, { expiresIn });
 
-    res.send({ status: 'ok', data: { tokenPayLoad, expiresIn } , token });
+    res.send({ status: 'ok', data: { tokenPayLoad, expiresIn }, token });
   } catch (error) {
-    next(error);
+    console.error('Error al iniciar sesión:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Error al iniciar sesión.',
+    });
   }
 };
 

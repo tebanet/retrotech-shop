@@ -14,7 +14,7 @@ const markUserAsActive = async (id) => {
     return user;
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
-    throw error; // Lanza el error para que sea capturado en la función llamadora (validateUser).
+    throw error;
   }
 };
 

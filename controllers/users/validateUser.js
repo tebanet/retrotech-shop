@@ -5,7 +5,6 @@ const validateUser = async (req, res) => {
   try {
     const { registrationCode } = req.params;
 
-    // Buscar al usuario por el registrationCode en la base de datos
     const user = await selectUserByRegistrationCode(registrationCode);
 
     if (!user) {
@@ -14,13 +13,13 @@ const validateUser = async (req, res) => {
         .json({ status: 'error', message: 'Código de validación inválido.' });
     }
 
-    // Actualizar el estado de validación del usuario en la base de datos
     await markUserAsActive(user.id);
 
     res
       .status(200)
       .json({ status: 'ok', message: 'Usuario validado correctamente.' });
   } catch (error) {
+    console.error('Error al procesar la validación del usuario:', error);
     res.status(500).json({
       status: 'error',
       message: 'Error al procesar la validación del usuario.',

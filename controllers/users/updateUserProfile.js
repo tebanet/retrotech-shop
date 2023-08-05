@@ -17,7 +17,6 @@ const updateUserProfile = async (req, res) => {
 
     const user = await selectUserById(id);
 
-    // Handle optional fields
     if ('username' in req.body) {
       user.username = req.body.username;
     }

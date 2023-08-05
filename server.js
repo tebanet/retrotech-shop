@@ -59,7 +59,14 @@ app.use('/uploads', express.static('./uploads'));
 app.use((error, req, res, next) => {
   console.error(error);
 
-  // Si el error tiene el nombre "ValidationError", quiere decir que es un error tirado por Joi, así que le ponemos un statusCode 400
+  // Custom error handling middleware
+  app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({ error: message });
+  });
+
+  // Error Joi
   if (error.name === 'ValidationError') {
     error.statusCode = 400;
   }
