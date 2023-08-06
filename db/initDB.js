@@ -24,6 +24,8 @@ const initDb = async () => {
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
         profile_pic VARCHAR(255),
+        bio VARCHAR(255),
+        address VARCHAR(100),
         role ENUM('admin', 'user') DEFAULT 'user',
         registrationCode VARCHAR(100),
         recoveryPassCode VARCHAR(100),
@@ -54,12 +56,15 @@ const initDb = async () => {
     console.log('Creando tabla de pedidos');
     await pool.query(
       `CREATE TABLE orders (
-        order_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        orderId INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         id_buyer INT UNSIGNED NOT NULL,
         id_seller INT UNSIGNED NOT NULL,
         id_product INT UNSIGNED NOT NULL,
-        delivery_status ENUM('delivered', 'bounced', 'delayed') NOT NULL,
-        delivery_date DATETIME NOT NULL,
+        order_status ENUM('accepted', 'rejected', 'pending') NOT NULL DEFAULT 'pending',
+        order_date DATETIME NOT NULL DEFAULT NOW(),
+        message VARCHAR(100),
+        delivery_status ENUM('delivered', 'bounced', 'delayed'),
+        delivery_date DATETIME,
         delivery_place VARCHAR(50) NOT NULL,
         FOREIGN KEY (id_buyer) REFERENCES users(id),
         FOREIGN KEY (id_seller) REFERENCES users(id),
@@ -76,14 +81,14 @@ const initDb = async () => {
         id_product INT UNSIGNED NOT NULL,
         valoracion INT UNSIGNED NOT NULL,
         comentaries VARCHAR(200) NOT NULL,
-        valoracion_date DATETIME NOT NULL,
+        valoracion_date DATETIME NOT NULL DEFAULT NOW(),
         FOREIGN KEY (id_product) REFERENCES product(product_id),
         FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
         FOREIGN KEY (id_seller) REFERENCES orders(id_seller)
       );`
     );
 
-    /* console.log('Creando administradores en la tabla users');
+    console.log('Creando administradores en la tabla users');
     await pool.query(`
     INSERT INTO users (email, username, password, active, role)
     VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
@@ -101,7 +106,7 @@ const initDb = async () => {
           ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'delivery',3),
           ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'online',1)
     ;
-    `); */
+    `);
 
     process.exit(0);
   } catch (error) {

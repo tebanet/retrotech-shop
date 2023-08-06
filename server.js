@@ -1,16 +1,15 @@
 require('dotenv').config();
 
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
 const express = require('express');
 const morgan = require('morgan');
 //const bodyParser = require('body-parser');
-
 
 const app = express();
 const { port } = require('./config.js');
 
 // Middleware de autenticação
-const { authUser }= require('./middlewares/auth.js')
+const { authUser } = require('./middlewares/auth.js');
 
 // Users controllers
 const postUsers = require('./controllers/users/postUsers.js');
@@ -21,10 +20,18 @@ const getSingleProduct = require('./controllers/products/getSingleProduct.js');
 const getProducts = require('./controllers/products/getProducts.js');
 const newProduct = require('./controllers/products/newProduct.js');
 const deletesingleProduct = require('./controllers/products/deleteProduct.js');
+const postOrder = require('./controllers/products/postOrder.js');
+const getProductByCategory = require('./controllers/products/productByCategory.js');
+const getUserData = require('./controllers/users/getUserData.js');
+const getUserOrders = require('./controllers/users/getUserOrders.js');
+const getUserOffers = require('./controllers/users/getUserOffers.js');
+const patchOffer = require('./controllers/users/patchOffer.js');
+const patchOrder = require('./controllers/users/patchOrder.js');
+const getRatings = require('./controllers/users/getRatings.js');
+const rateOrder = require('./controllers/users/rateOrder.js');
 
 // middleware que reconhece o ficheiro binário
-app.use(fileUpload())
-
+app.use(fileUpload());
 
 // Middleware que analiza json y examina las solicitudes en las que el encabezado Content-Type coincide con la opción de tipo.
 app.use(express.json());
@@ -33,19 +40,31 @@ app.use(express.json());
 // Rutas de Usuario
 app.post('/users', postUsers);
 app.post('/users/login', loginUser);
+app.get('/:username', getUserData);
 
+// Rutas de Pedidos
+app.post('/product/:id/order', authUser, postOrder); // Hacer pedido
+app.get('/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
+app.patch('/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
+app.get('/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
+app.patch('/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos
+
+// Rutas de valoraciones
+app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil
+app.post('/:username/:orderID/rate', authUser, rateOrder); // Valorar un pedido que haya hecho el usuario
 
 // Rotas de Produtos
-app.post('/', authUser, newProduct);          //middleware associado para autenticação
-app.get('/', getProducts);  
+app.post('/', authUser, newProduct); //middleware associado para autenticação
+app.get('/', getProducts);
+app.get('/:category', getProductByCategory);
 app.get('/product/:id', getSingleProduct);
-app.delete('/product/:id',authUser, deletesingleProduct)
+app.delete('/product/:id', authUser, deletesingleProduct);
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
 
 // permite abrir o browser com o nome da foto para carregar a mesma
-app.use('/uploads', express.static('./uploads'))
+app.use('/uploads', express.static('./uploads'));
 
 // Middleware de 404
 app.use((error, req, res, next) => {
