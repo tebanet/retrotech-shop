@@ -1,34 +1,30 @@
-RetroTech Shop API
+retrotech_shop API\
 
-DESCRIPCIÓN
-Catálogo de compraventa de artículos retro (consolas, PCs, etc). Quien busca algo accede, selecciona lo que le interesa y solicita la compra al precio publicado.
+Es un catálogo de compraventa de artículos retro. Quien busca algo, selecciona lo que le interesa y solicita la compra al precio publicado.\
 
-USUARIO ANÓNIMOS
-● Búsqueda por:
-Nombre
-○ Categoría
-○ Localidad
-○ Precio
-● Registro (le llega email con código de confirmación para activar la cuenta antes de poder hacer login)
-○ Email
-● Login
-○ Nombre
-○ Password
+Rutas de usuario:
+POST /user --> Registro de usuario
+POST /user/login --> Login de usuario
+PUT /user/update/:id --L Modificar el usuario
+GET /:username --> Recuperar el usuario
 
-USUARIOS REGISTRADOS (Pueden comprar y vender artículos)
-● Gestión del perfil (cambio de datos del registro con posibilidad de añadir biografía y foto de perfil)
-● Búsqueda por:
-○ Nombre
-○ Categoría
-○ Localidad
-○ Precio
-● Publicación de nuevos artículos
-○ Nombre
-○ Imagen
-○ Descripción
-○ Categoría
-○ Precio
-○ Localidad de venta
-● Proceso de reserva de artículos
-○ El vendedor recibe la propuesta de compra vía email y puede aceptarla y proponer una hora y lugar de entrega ○ El comprador recibe información sobre si la compra fue aceptada vía email con la información de hora y lugar de entrega
-○ El comprador puede valorar al vendedor sólo después de la entrega
+Rutas de productos:
+GET / --> Muestra todos los productos
+GET /category/:category --> Selecciona los productos por categoría
+GET /product/:id --> Selecciona el producto por el id
+POST / --> Crea un nuevo producto
+DEL /product/:id --> Elimina el producto
+GET /search/name/:letter --> Buscar por nombre de producto
+GET /search/category/:letter --> Buscar por categoría de producto
+GET /search/price/:min-:max --> Buscar por precio entre mínimo y máximo
+GET /search/location/:letter --> Buscar por Comunidad Autónoma
+
+Rutas de reservas:
+POST /product/:id/order --> Hacer una reserva de producto
+GET /:username/my-orders --> Ver mis reservas hechas y recibidas
+PATCH /:username/my-order/:id --> Aceptar, rechazar o cancelar reservas
+
+Rutas de valoraciones:
+
+GET /:username/rating --> Ver las valoraciones de un usuario
+POST /:username/rating --> Valorar a un usuario
