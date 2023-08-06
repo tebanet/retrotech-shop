@@ -1,6 +1,6 @@
-retrotech_shop API\
+retrotech_shop API
 
-Es un catálogo de compraventa de artículos retro. Quien busca algo, selecciona lo que le interesa y solicita la compra al precio publicado.\
+Es un catálogo de compraventa de artículos retro. Quien busca algo, selecciona lo que le interesa y solicita la compra al precio publicado.
 
 Rutas de usuario:\
 POST /user --> Registro de usuario\
