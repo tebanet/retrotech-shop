@@ -15,7 +15,7 @@ const getSellerIdByProduct = async (id) => {
     );
 
     if (result.length === 0) {
-      throw generateError(`o Produto com id=${id} não existe`, 404);
+      throw generateError(`El producto con el id: ${id} no existe`, 404);
     }
     return result[0];
   } finally {

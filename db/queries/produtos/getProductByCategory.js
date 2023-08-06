@@ -26,25 +26,27 @@ const getProductByCategory = async (category) => {
   }
 };
 
-
-// Bruno 
+// Bruno
 const getProductByCategoryLike = async (letter) => {
-    let connection; 
+  let connection;
 
-    try {
-        connection = await getPool()
+  try {
+    connection = await getPool();
 
-        const [result] = await connection.query(`
+    const [result] = await connection.query(
+      `
         SELECT * FROM product WHERE category LIKE '${letter}%'
-        `, [letter]);
+        `,
+      [letter]
+    );
 
-        if(result.length === 0) {
-            throw generateError(`Não existe nenhum produto com essa categoria`, 404)
-        }
-        return result;
-    } finally {
-        if(connection) connection.release
+    if (result.length === 0) {
+      throw generateError(`No existe ningún producto con esta categoría`, 404);
     }
-}
+    return result;
+  } finally {
+    if (connection) connection.release;
+  }
+};
 
-module.exports = { getProductByCategory, getProductByCategoryLike }
+module.exports = { getProductByCategory, getProductByCategoryLike };
