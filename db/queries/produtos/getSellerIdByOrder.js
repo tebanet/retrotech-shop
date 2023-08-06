@@ -1,7 +1,7 @@
 const getPool = require('../../getDB.js');
 const { generateError } = require('../../../helpers/generateError.js');
 
-const getProductByiD = async (id) => {
+const getSellerIdByOrder = async (id) => {
   let connection;
 
   try {
@@ -9,13 +9,13 @@ const getProductByiD = async (id) => {
 
     const [result] = await connection.query(
       `
-        SELECT * FROM product WHERE product_id= ?
+        SELECT id_seller FROM orders WHERE orderId= ?
         `,
       [id]
     );
 
     if (result.length === 0) {
-      throw generateError(`o Produto com id=${id} não existe`, 404);
+      throw generateError(`El pedido ${id} no existe`, 404);
     }
     return result[0];
   } finally {
@@ -23,4 +23,4 @@ const getProductByiD = async (id) => {
   }
 };
 
-module.exports = { getProductByiD };
+module.exports = { getSellerIdByOrder };

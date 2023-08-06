@@ -1,7 +1,7 @@
 const getPool = require('../../getDB.js');
 const { generateError } = require('../../../helpers/generateError.js');
 
-const getProductByiD = async (id) => {
+const getSellerIdByProduct = async (id) => {
   let connection;
 
   try {
@@ -9,7 +9,7 @@ const getProductByiD = async (id) => {
 
     const [result] = await connection.query(
       `
-        SELECT * FROM product WHERE product_id= ?
+        SELECT id_seller FROM product WHERE product_id= ?
         `,
       [id]
     );
@@ -23,4 +23,4 @@ const getProductByiD = async (id) => {
   }
 };
 
-module.exports = { getProductByiD };
+module.exports = { getSellerIdByProduct };

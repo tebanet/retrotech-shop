@@ -17,11 +17,20 @@ const loginUser = require('./controllers/users/loginUsers.js');
 
 // Products controllers
 const getProductByName = require('./controllers/products/getProductByName.js');
-const getProductByCategory = require('./controllers/products/getProductByCategory.js');
+const getProductByCategoryLike = require('./controllers/products/getProductByCategory.js');
 const getSingleProduct = require('./controllers/products/getSingleProduct.js');
 const getProducts = require('./controllers/products/getProducts.js');
 const newProduct = require('./controllers/products/newProduct.js');
 const deletesingleProduct = require('./controllers/products/deleteProduct.js');
+const postOrder = require('./controllers/products/postOrder.js');
+const getProductByCategory = require('./controllers/products/productByCategory.js');
+const getUserData = require('./controllers/users/getUserData.js');
+const getUserOrders = require('./controllers/users/getUserOrders.js');
+const getUserOffers = require('./controllers/users/getUserOffers.js');
+const patchOffer = require('./controllers/users/patchOffer.js');
+const patchOrder = require('./controllers/users/patchOrder.js');
+const getRatings = require('./controllers/users/getRatings.js');
+const rateOrder = require('./controllers/users/rateOrder.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
 const validateUser = require('./controllers/users/validateUser.js');
 const updateUserProfile = require('./controllers/users/updateUserProfile.js');
@@ -36,15 +45,30 @@ app.use(express.json());
 // Rutas de Usuario
 app.post('/users', postUsers);
 app.post('/users/login', loginUser);
+app.get('/:username', getUserData);
 app.get('/users/validate/:registrationCode', validateUser);
 app.put('/users/update/:id', authUser, updateUserProfile);
+
+// Rutas de Pedidos
+app.post('/product/:id/order', authUser, postOrder); // Hacer pedido
+app.get('/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
+app.patch('/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
+app.get('/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
+app.patch('/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos
+
+// Rutas de valoraciones
+app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil
+app.post('/:username/:orderID/rate', authUser, rateOrder); // Valorar un pedido que haya hecho el usuario
 
 // Rotas de Produtos
 app.post('/', authUser, newProduct); //middleware associado para autenticação
 app.get('/', getProducts);
+app.get('/product/:category', getProductByCategory);
+app.get('/product/:id', getSingleProduct);
+app.delete('/product/:id', authUser, deletesingleProduct);
 app.get('/product/name/:letter', getProductByName);
 app.get('/product/price/:min-:max', getProductByPrice);
-app.get('/product/category/:letter', getProductByCategory);
+app.get('/product/category/:letter', getProductByCategoryLike);
 app.get('/product/id/:id', getSingleProduct);
 app.delete('/product/:id', authUser, deletesingleProduct);
 app.get('/product/:');
