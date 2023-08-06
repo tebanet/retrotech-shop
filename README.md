@@ -5,8 +5,8 @@ Es un catálogo de compraventa de artículos retro. Quien busca algo, selecciona
 Rutas de usuario:\
 POST /user --> Registro de usuario\
 POST /user/login --> Login de usuario\
-PUT /user/update/:id --L Modificar el usuario\
-GET /:username --> Recuperar el usuario\
+PUT /user/update/:id --> Modificar el usuario\
+GET /:username --> Recuperar el usuario
 
 Rutas de productos:\
 GET / --> Muestra todos los productos\
@@ -17,13 +17,13 @@ DEL /product/:id --> Elimina el producto\
 GET /search/name/:letter --> Buscar por nombre de producto\
 GET /search/category/:letter --> Buscar por categoría de producto\
 GET /search/price/:min-:max --> Buscar por precio entre mínimo y máximo\
-GET /search/location/:letter --> Buscar por Comunidad Autónoma\
+GET /search/location/:letter --> Buscar por Comunidad Autónoma
 
 Rutas de reservas:\
 POST /product/:id/order --> Hacer una reserva de producto\
 GET /:username/my-orders --> Ver mis reservas hechas y recibidas\
-PATCH /:username/my-order/:id --> Aceptar, rechazar o cancelar reservas\
+PATCH /:username/my-order/:id --> Aceptar, rechazar o cancelar reservas
 
 Rutas de valoraciones:\
 GET /:username/rating --> Ver las valoraciones de un usuario\
-POST /:username/rating --> Valorar a un usuario\
+POST /:username/rating --> Valorar a un usuario
