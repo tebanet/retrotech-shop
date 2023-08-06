@@ -9,7 +9,7 @@ const profilePicsPath = path.join(__dirname, '..', '..', 'profile_pics');
 const updateUserProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { email, username, password, bio, profile_pic } = req.body;
+    const { email, username, password, bio, profile_pic, address } = req.body;
 
     await updateUserSchema.validateAsync(req.body);
 
@@ -41,13 +41,18 @@ const updateUserProfile = async (req, res) => {
       user.profile_pic = profilePicPath;
     }
 
+    if ('address' in req.body) {
+      user.address = req.body.address;
+    }
+
     const rowsAffected = await modifyUser(
       id,
       user.email,
       user.username,
       user.hashedPassword,
       user.bio,
-      user.profile_pic
+      user.profile_pic,
+      user.address
     );
 
     if (rowsAffected === 0) {

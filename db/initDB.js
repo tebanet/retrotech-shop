@@ -87,27 +87,25 @@ const initDb = async () => {
         FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
         FOREIGN KEY (id_seller) REFERENCES orders(id_seller)
         );`
-)
+    );
 
     console.log('Creando administradores en la tabla users');
     await pool.query(`
     INSERT INTO users (email, username, password, active, role)
-    VALUES('tebane@gmail.com', 'tebane', '1234abcd!', 1, 'admin'),
-          ('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
+    VALUES('kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
           ('nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
           ('janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
 
     console.log('Creando productos en la tabla productos');
     await pool.query(`
-    INSERT INTO product(product_title, product_image, category, price, description, status, place_of_sale, location, id_seller)
-    VALUES('MasterSystem', 'img_1', 'videogame', '250.00', '1986 Home Video Game Console', 'available', 'online', 'Asturias', 1),
-          ('Playstation1', 'img_2', 'videogame', '135.00', '2000 Home Video Game Console', 'sold out', 'delivery', 'Canarias', 2),
-          ('Pentium1', 'img_3', 'pc', '335.00', '1988 Home Pc', 'sold out', 'delivery', 'Cantabria', 3),
-          ('Macintosh I', 'img_4', 'pc', '298.00', '1985 Apple Home Pc', 'reserved', 'online', 'Balears', 2),
-          ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'available', 'Aragón',3),
-          ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'reserved', 'Madrid',1)
-    ;
-    `);
+    INSERT INTO product(product_title, product_image, category, description, price, status, place_of_sale, location, id_seller)
+    VALUES('MasterSystem', 'img_1', 'videogame', '1986 Home Video Game Console', '250.00', 'available', 'online', 'Asturias', 1),
+          ('Playstation1', 'img_2', 'videogame', '2000 Home Video Game Console', '135.00', 'sold out', 'delivery', 'Canarias', 2),
+          ('Pentium1', 'img_3', 'pc', '1988 Home Pc', '335.00', 'sold out', 'delivery', 'Cantabria', 3),
+          ('Macintosh I', 'img_4', 'pc', '1985 Apple Home Pc', '298.00', 'reserved', 'online', 'Balears', 2),
+          ('Swiss+go', 'img_5', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', 3),
+          ('Kodak EKtar', 'img_6', 'photo/video', '1992 Analogic Photo Camera', '55.00', 'reserved', 'delivery', 'Madrid',1);
+`);
 
     process.exit(0);
   } catch (error) {
