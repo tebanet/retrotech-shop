@@ -1,6 +1,6 @@
-const { getProductByiD } = require('../../db/queries/produtos/getProductByiD');
+const { getProductByiD } = require('../../db/queries/produtos/getProductByiD')
 
-const getSingleProduct = async (req,res,next) => {
+const getSingleProductController = async (req,res,next) => {
     try {
         const {id} = req.params
         const product = await getProductByiD(id)
@@ -13,5 +13,4 @@ const getSingleProduct = async (req,res,next) => {
     }
 }
 
-module.exports = 
-    getSingleProduct
+module.exports = getSingleProductController 

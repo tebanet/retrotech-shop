@@ -16,6 +16,8 @@ const postUsers = require('./controllers/users/postUsers.js');
 const loginUser = require('./controllers/users/loginUsers.js');
 
 // Products controllers
+const getProductByName = require('./controllers/products/getProductByName.js');
+const getProductByCategoryLike = require('./controllers/products/getProductByCategory.js');
 const getSingleProduct = require('./controllers/products/getSingleProduct.js');
 const getProducts = require('./controllers/products/getProducts.js');
 const newProduct = require('./controllers/products/newProduct.js');
@@ -29,6 +31,9 @@ const patchOffer = require('./controllers/users/patchOffer.js');
 const patchOrder = require('./controllers/users/patchOrder.js');
 const getRatings = require('./controllers/users/getRatings.js');
 const rateOrder = require('./controllers/users/rateOrder.js');
+const getProductByPrice = require('./controllers/products/getProductByPrice.js');
+const validateUser = require('./controllers/users/validateUser.js');
+const updateUserProfile = require('./controllers/users/updateUserProfile.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -41,6 +46,8 @@ app.use(express.json());
 app.post('/users', postUsers);
 app.post('/users/login', loginUser);
 app.get('/:username', getUserData);
+app.get('/users/validate/:registrationCode', validateUser);
+app.put('/users/update/:id', authUser, updateUserProfile);
 
 // Rutas de Pedidos
 app.post('/product/:id/order', authUser, postOrder); // Hacer pedido
@@ -56,9 +63,15 @@ app.post('/:username/:orderID/rate', authUser, rateOrder); // Valorar un pedido 
 // Rotas de Produtos
 app.post('/', authUser, newProduct); //middleware associado para autenticação
 app.get('/', getProducts);
-app.get('/:category', getProductByCategory);
+app.get('/product/:category', getProductByCategory);
 app.get('/product/:id', getSingleProduct);
 app.delete('/product/:id', authUser, deletesingleProduct);
+app.get('/product/name/:letter', getProductByName);
+app.get('/product/price/:min-:max', getProductByPrice);
+app.get('/product/category/:letter', getProductByCategoryLike);
+app.get('/product/id/:id', getSingleProduct);
+app.delete('/product/:id', authUser, deletesingleProduct);
+app.get('/product/:');
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
@@ -70,7 +83,14 @@ app.use('/uploads', express.static('./uploads'));
 app.use((error, req, res, next) => {
   console.error(error);
 
-  // Si el error tiene el nombre "ValidationError", quiere decir que es un error tirado por Joi, así que le ponemos un statusCode 400
+  // Custom error handling middleware
+  app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({ error: message });
+  });
+
+  // Error Joi
   if (error.name === 'ValidationError') {
     error.statusCode = 400;
   }

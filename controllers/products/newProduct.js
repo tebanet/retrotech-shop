@@ -14,12 +14,13 @@ const newProductController = async (req, res, next) => {
       price,
       description,
       status,
+      location,
       place_of_sale,
     } = req.body;
 
     if (!price) {
       throw generateError(
-        'O produto não tem preço, por favor insira em conformidade',
+        'El producto que intentas agregar no tiene precio, por favor define un precio.',
         400
       );
     }
@@ -51,11 +52,12 @@ const newProductController = async (req, res, next) => {
       description,
       status,
       place_of_sale,
+      location,
       req.userId
     );
     res.send({
       status: 'ok',
-      message: `Produto com id :${id} criado com sucesso`,
+      message: `El producto con ${product_title} se ha creado con éxito.`,
     });
   } catch (error) {
     next(error);

@@ -46,6 +46,7 @@ const initDb = async () => {
      price DECIMAL(10,2),
      status ENUM('reserved', 'available', 'sold out') NOT NULL,
      place_of_sale ENUM('online', 'delivery') NOT NULL,
+     location ENUM('Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria','Castilla y León', 'Castilla - La Mancha', 'Catalunya', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja', 'Ceuta', 'Melilla') NOT NULL,
      id_seller INT UNSIGNED NOT NULL,
      createdAt DATETIME NOT NULL DEFAULT NOW(),
      FOREIGN KEY (id_seller) REFERENCES users(id)
@@ -85,8 +86,8 @@ const initDb = async () => {
         FOREIGN KEY (id_product) REFERENCES product(product_id),
         FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
         FOREIGN KEY (id_seller) REFERENCES orders(id_seller)
-      );`
-    );
+        );`
+)
 
     console.log('Creando administradores en la tabla users');
     await pool.query(`
@@ -98,13 +99,13 @@ const initDb = async () => {
 
     console.log('Creando productos en la tabla productos');
     await pool.query(`
-    INSERT INTO product(product_title, product_image, category, price, description, place_of_sale, id_seller)
-    VALUES('MasterSystem', 'img_1', 'videogame', '250.00', '1986 Home Video Game Console', 'online', 1),
-          ('Playstation1', 'img_2', 'videogame', '135.00', '2000 Home Video Game Console', 'delivery',2),
-          ('Pentium1', 'img_3', 'pc', '335.00', '1988 Home Pc', 'delivery',3),
-          ('Macintosh I', 'img_4', 'pc', '298.00', '1985 Apple Home Pc', 'online',2),
-          ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'delivery',3),
-          ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'online',1)
+    INSERT INTO product(product_title, product_image, category, price, description, status, place_of_sale, location, id_seller)
+    VALUES('MasterSystem', 'img_1', 'videogame', '250.00', '1986 Home Video Game Console', 'available', 'online', 'Asturias', 1),
+          ('Playstation1', 'img_2', 'videogame', '135.00', '2000 Home Video Game Console', 'sold out', 'delivery', 'Canarias', 2),
+          ('Pentium1', 'img_3', 'pc', '335.00', '1988 Home Pc', 'sold out', 'delivery', 'Cantabria', 3),
+          ('Macintosh I', 'img_4', 'pc', '298.00', '1985 Apple Home Pc', 'reserved', 'online', 'Balears', 2),
+          ('Swiss+go', 'img_5', 'photo/video', '45.00', '1980 Analogic Photo Camera', 'available', 'Aragón',3),
+          ('Kodak EKtar', 'img_6', 'photo/video', '55.00', '1992 Analogic Photo Camera', 'reserved', 'Madrid',1)
     ;
     `);
 
