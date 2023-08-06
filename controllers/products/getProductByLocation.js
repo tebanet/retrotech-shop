@@ -1,4 +1,4 @@
-const { getProductByLocation } = require('../../db/queries/produtos/getProductByLocation)
+const { getProductByLocation } = require('../../db/queries/produtos/getProductByLocation')
 
 const getProductLocation = async (req, res, next) => {
   try {
