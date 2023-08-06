@@ -1,3 +1,6 @@
+const {
+  deleteProductByiD,
+} = require('../../db/queries/produtos/deleteSingleProduct');
 const { getProductByiD } = require('../../db/queries/produtos/getProductByiD');
 const { generateError } = require('../../helpers/generateError.js');
 
@@ -19,10 +22,12 @@ const deleteProduct = async (req, res, next) => {
     }
 
     // // apagar o tweet
+    await deleteProductByiD(id);
+
     // await deleteProductByiD(id)
     res.send({
       status: 'ok',
-      message: `El producto con ${product_title} se ha eliminado.`,
+      message: `El producto con id ${id} se ha eliminado.`,
     });
   } catch (error) {
     next(error);

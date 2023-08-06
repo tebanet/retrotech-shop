@@ -34,6 +34,7 @@ const rateOrder = require('./controllers/users/rateOrder.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
 const validateUser = require('./controllers/users/validateUser.js');
 const updateUserProfile = require('./controllers/users/updateUserProfile.js');
+const getProductByLocation = require('./controllers/products/getProductByLocation.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -63,15 +64,13 @@ app.post('/:username/:orderID/rate', authUser, rateOrder); // Valorar un pedido 
 // Rotas de Produtos
 app.post('/', authUser, newProduct); //middleware associado para autenticação
 app.get('/', getProducts);
-app.get('/product/:category', getProductByCategory);
+app.get('/category/:category', getProductByCategory);
 app.get('/product/:id', getSingleProduct);
 app.delete('/product/:id', authUser, deletesingleProduct);
-app.get('/product/name/:letter', getProductByName);
-app.get('/product/price/:min-:max', getProductByPrice);
-app.get('/product/category/:letter', getProductByCategoryLike);
-app.get('/product/id/:id', getSingleProduct);
-app.delete('/product/:id', authUser, deletesingleProduct);
-app.get('/product/:');
+app.get('/search/name/:letter', getProductByName);
+app.get('/search/price/:min-:max', getProductByPrice);
+app.get('/search/category/:letter', getProductByCategoryLike);
+app.get('/search/location/:letter', getProductByLocation);
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));

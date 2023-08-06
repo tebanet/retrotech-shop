@@ -1,0 +1,33 @@
+const getPool = require('../../getDB.js');
+const { generateError } = require('../../../helpers/generateError.js');
+
+const getProductByLocation = async (letter) => {
+  let connection;
+
+  try {
+    connection = await getPool();
+
+    const [result] = await connection.query(
+      `SELECT * FROM product WHERE location LIKE '?%'`,
+      [letter]
+    );
+
+    if (result.length === 0) {
+      throw generateError(
+        'no hay ningún producto nesta localização. intenta de nuevo entre videogame, accessories. pc y photo / video ',
+        404
+      );
+    }
+    return result;
+  } catch (error) {
+    console.error(
+      'no hay ningún producto con esa localização. intenta de nuevo entre videogame, accessories. pc y photo / video  ',
+      error
+    );
+    throw error;
+  } finally {
+    if (connection) connection.release;
+  }
+};
+
+module.exports = { getProductByLocation };
