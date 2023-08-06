@@ -3,8 +3,8 @@ retrotech_shop API\
 Es un catálogo de compraventa de artículos retro. Quien busca algo, selecciona lo que le interesa y solicita la compra al precio publicado.\
 
 Rutas de usuario:
-POST /user --> Registro de usuario
-POST /user/login --> Login de usuario
+POST /user --> Registro de usuario\
+POST /user/login --> Login de usuario\
 PUT /user/update/:id --L Modificar el usuario
 GET /:username --> Recuperar el usuario
 
