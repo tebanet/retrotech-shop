@@ -5,17 +5,22 @@ const sharp = require('sharp');
 const modifyUser = require('../../db/queries/users/modifyUser.js');
 const selectUserById = require('../../db/queries/users/selectUserById.js');
 const profilePicsPath = path.join(__dirname, '..', '..', 'profile_pics');
+const jwt = require('jsonwebtoken');
+const { generateError } = require('../../helpers/generateError.js');
 
-const updateUserProfile = async (req, res) => {
+const updateUserProfile = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userId = decodedToken.id;
+
     const { email, username, password, bio, profile_pic, address } = req.body;
 
     await updateUserSchema.validateAsync(req.body);
 
     let hashedPassword;
 
-    const user = await selectUserById(id);
+    const user = await selectUserById(userId);
 
     if ('username' in req.body) {
       user.username = req.body.username;
@@ -34,7 +39,7 @@ const updateUserProfile = async (req, res) => {
     }
 
     if (req.files?.profile_pic) {
-      const profilePicPath = path.join(profilePicsPath, `user${id}.jpg`);
+      const profilePicPath = path.join(profilePicsPath, `user${id}.`);
       await sharp(req.files.profile_pic.data)
         .resize(200, 200)
         .toFile(profilePicPath);
@@ -46,7 +51,7 @@ const updateUserProfile = async (req, res) => {
     }
 
     const rowsAffected = await modifyUser(
-      id,
+      userId,
       user.email,
       user.username,
       user.hashedPassword,
@@ -56,14 +61,11 @@ const updateUserProfile = async (req, res) => {
     );
 
     if (rowsAffected === 0) {
-      return res.status(500).json({ error: 'Failed to update user' });
+      return res.status(400).json({ error: 'Failed to update user' });
     }
     return res.json(user);
   } catch (error) {
-    console.error('Error al actualizar el perfil:', error);
-    res
-      .status(500)
-      .json({ status: 'error', message: 'Error al actualizar el perfil.' });
+    next(error);
   }
 };
 

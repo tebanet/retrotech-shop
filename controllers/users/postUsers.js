@@ -38,19 +38,12 @@ const postUsers = async (req, res, next) => {
 
     await sgMail.send(msg);
 
-    res
-      .status(201)
-      .send({
-        status: 'ok',
-        data: { id, email, username, createdAt: new Date() },
-      });
-  } catch (error) {
-    console.error('Error al crear el perfil de usuario:', error);
-    res.status(500).json({
-      status: 'error',
-      message: 'Error al crear el perfil de usuario.',
+    res.status(201).send({
+      status: 'ok',
+      data: { id, email, username, createdAt: new Date() },
     });
+  } catch (error) {
+    next(error);
   }
 };
-
 module.exports = postUsers;

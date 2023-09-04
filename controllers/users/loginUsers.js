@@ -36,11 +36,7 @@ const loginUser = async (req, res, next) => {
 
     res.send({ status: 'ok', data: { tokenPayLoad, expiresIn }, token });
   } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-    res.status(500).json({
-      status: 'error',
-      message: 'Error al iniciar sesión.',
-    });
+    next(error);
   }
 };
 
