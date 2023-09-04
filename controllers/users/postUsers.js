@@ -4,6 +4,7 @@ const insertUser = require('../../db/queries/users/insertUser.js');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
 const { port } = require('../../config.js');
+const { v4: uuidv4 } = require('uuid');
 
 // SendGrid Key
 sgMail.setApiKey(process.env.SENDGRID_KEY);
@@ -12,19 +13,20 @@ const postUsers = async (req, res, next) => {
   try {
     await newUserSchema.validateAsync(req.body);
 
-    const { email, username, password, createdAt } = req.body;
+    const id = uuidv4();
+
+    const { email, username, password } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const registrationCode = crypto.randomUUID();
 
     const userId = await insertUser({
+      id,
       ...req.body,
       password: hashedPassword,
       registrationCode: registrationCode,
     });
-
-    const createdUser = { username, email, createdAt };
 
     // Enviar el correo de validación
     const msg = {
@@ -36,7 +38,12 @@ const postUsers = async (req, res, next) => {
 
     await sgMail.send(msg);
 
-    res.status(201).send({ status: 'ok', data: createdUser });
+    res
+      .status(201)
+      .send({
+        status: 'ok',
+        data: { id, email, username, createdAt: new Date() },
+      });
   } catch (error) {
     console.error('Error al crear el perfil de usuario:', error);
     res.status(500).json({

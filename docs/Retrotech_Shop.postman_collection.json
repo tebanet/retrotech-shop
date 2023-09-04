@@ -1,0 +1,797 @@
+{
+	"info": {
+		"_postman_id": "65185e59-3a37-47dc-b962-3b102b1329b8",
+		"name": "retrotech_shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28608200"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tu@correo.es\",\r\n    \"username\": \"username\",\r\n    \"password\": \"abcD1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"    pm.collectionVariables.set('JWT', responseJson.token);\r",
+									"    pm.collectionVariables.set('username', responseJson.data.tokenPayLoad.username)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tu@correo.es\",\r\n    \"password\": \"abcD1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putUpdateProfile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"description": "Email",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"description": "username",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "abcD1234",
+									"description": "Obligatoria siempre",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "",
+									"description": "bio",
+									"type": "text"
+								},
+								{
+									"key": "profile_pic",
+									"description": "pfp",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "",
+									"description": "address",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/update/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserData",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tuusername",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tuusername"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "getAllProducts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/product/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/category/videogame",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category",
+								"videogame"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postProduct",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_title",
+									"value": "prueba1",
+									"type": "text"
+								},
+								{
+									"key": "product_image",
+									"type": "file",
+									"src": "/C:/Users/Kaysera/Pictures/Fod-XPvaQAAeJRH.jfif"
+								},
+								{
+									"key": "category",
+									"value": "pc",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "prueba2",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "available",
+									"type": "text"
+								},
+								{
+									"key": "place_of_sale",
+									"value": "online",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Andalucia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/product/10",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"product",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductByLetter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/search/name/p",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"search",
+								"name",
+								"p"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategoryByLetter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/search/category/v",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"search",
+								"category",
+								"v"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductByPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/search/price/0-100",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"search",
+								"price",
+								"0-100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductByLocation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/search/location/andalucia",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"search",
+								"location",
+								"andalucia"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "postOrder",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"me gusta\",\r\n    \"delivery_place\": \"algun sitio...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/product/2/order",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"product",
+								"2",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserOrders",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							},
+							{
+								"key": "username",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/paco/my-orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"my-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patchOrder",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							},
+							{
+								"key": "username",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "order_status",
+									"value": "rejected",
+									"description": "Rechazar pedido",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/paco/my-orders/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"my-orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserOffers",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							},
+							{
+								"key": "username",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/paco/my-offers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"my-offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patchOffer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							},
+							{
+								"key": "username",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "order_status",
+									"value": "accepted",
+									"description": "Aceptar pedido",
+									"type": "text"
+								},
+								{
+									"key": "order_status",
+									"value": "rejected",
+									"description": "Rechazar pedido",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "delivery_date",
+									"value": "2023-08-08 16:35:22",
+									"description": "Fecha de envio / recogida",
+									"type": "text"
+								},
+								{
+									"key": "delivery_place",
+									"value": "Calle de la Fantasia 12",
+									"description": "Direccion de envio / recogida",
+									"type": "text"
+								},
+								{
+									"key": "delivery_status",
+									"value": "delivered",
+									"description": "Pedido enviado",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/paco/my-offers/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"my-offers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ratings",
+			"item": [
+				{
+					"name": "getUserRatings",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/paco/ratings",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rateOrder",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							},
+							{
+								"key": "username",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "valoracion",
+									"value": "1",
+									"description": "1 a 5",
+									"type": "text"
+								},
+								{
+									"key": "comentaries",
+									"value": "",
+									"description": "Opcional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/paco/1/rate",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"paco",
+								"1",
+								"rate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "localhost:3000"
+		},
+		{
+			"key": "JWT",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJwYWNvIiwiZW1haWwiOiJwYWNvQHBhY28uY29tIiwiaWF0IjoxNjkxMTY3NzE4LCJleHAiOjE2OTM3NTk3MTh9.nDS6sohKas4F2MyfT7PHWT1MgnIj9Ktntu6s6aFDbYs",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "anyvalue",
+			"type": "string"
+		}
+	]
+}
