@@ -14,7 +14,7 @@ const selectUserData = async (username) => {
     ROUND(AVG(valoracion), 1) AS media_valoracion
 FROM
     users
-INNER JOIN
+LEFT JOIN
     valoraciones ON
     users.id = valoraciones.id_seller
 WHERE
@@ -23,7 +23,7 @@ WHERE
     [username]
   );
 
-  if (user.length === 0) {
+  if (user[0].username) {
     throw generateError(`El usuario ${username} no existe`, 404);
   }
 

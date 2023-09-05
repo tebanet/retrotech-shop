@@ -13,6 +13,9 @@ const newOrderController = async (req, res, next) => {
     }
 
     const seller = await getSellerIdByProduct(req.params.id);
+    if (seller.id_seller === req.userId) {
+      throw generateError('¡No puedes comprarte algo a ti mismo!', 400);
+    }
 
     const order_id = await postOrder(
       req.userId,
