@@ -4,8 +4,19 @@ const fileUpload = require('express-fileupload');
 const express = require('express');
 const morgan = require('morgan');
 //const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+const corsMiddleware = cors({
+  origin: [
+    'https://retrotech-shop.com',
+    'http://localhost:5173',
+    'http://localhost:5174',
+  ],
+});
+
+app.use(corsMiddleware);
+
 const { port } = require('./config.js');
 
 // Middleware de autenticação
