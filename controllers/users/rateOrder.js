@@ -5,9 +5,22 @@ const {
 } = require('../../db/queries/produtos/getSellerIdByOrder.js');
 const getProductByOrderId = require('../../db/queries/produtos/getProductByOrderId.js');
 const getBuyerByOrderID = require('../../db/queries/users/getBuyerByOrderID.js');
+const jwt = require('jsonwebtoken');
 
 const rateOrder = async (req, res, next) => {
   try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userUsername = decodedToken.username;
+
+    if (userUsername != req.params.username) {
+      res.send({
+        error: '400',
+        message: '¡No eres el dueño de esta cuenta!',
+      });
+      return;
+    }
+
     const { valoracion, comentaries } = req.body;
 
     if (!valoracion) {
@@ -19,18 +32,17 @@ const rateOrder = async (req, res, next) => {
     }
 
     const buyer = await getBuyerByOrderID(req.params.orderID);
-
     const seller = await getSellerIdByOrder(req.params.orderID);
-
     const product = await getProductByOrderId(req.params.orderID);
-
     const order_id = await postRateOrder(
       buyer.id_buyer,
       seller.id_seller,
       product.id_product,
       valoracion,
-      comentaries
+      comentaries,
+      req.params.orderID
     );
+
     res.send({
       status: 'ok',
       message: `¡El pedido ${order_id} ha sido valorado con ${valoracion} estrellas!`,

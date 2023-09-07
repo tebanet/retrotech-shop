@@ -70,9 +70,9 @@ app.patch('/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o r
 
 // Rutas de valoraciones
 app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil
-app.post('/:username/:orderID/rate', authUser, rateOrder); // Valorar un pedido que haya hecho el usuario
+app.post('/:username/my-orders/:orderID/rate', authUser, rateOrder); // Valorar una compra
 
-// Rotas de Produtos
+// Rutas de Produtos
 app.post('/', authUser, newProduct); //middleware associado para autenticação
 app.get('/', getProducts);
 app.get('/category/:category', getProductByCategory);
