@@ -1,20 +1,23 @@
 const getUserOrdersById = require('../../db/queries/users/getUserOrdersById');
-const { getUsernameByURL } = require('../../db/queries/users/getUsernameByURL');
+const jwt = require('jsonwebtoken');
 
 const getUserOrders = async (req, res, next) => {
   try {
-    const user = await getUsernameByURL(req.params.username);
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userId = decodedToken.id;
+    const userUsername = decodedToken.username;
 
-    if (user != req.headers.username) {
+    if (userUsername != req.params.username) {
       res.send({
         error: '400',
-        message: '¡No eres el dueño de esta cuenta!',
+        message: '¡No puedes ver pedidos de otras personas!',
       });
 
       return;
     }
 
-    const orders = await getUserOrdersById(user);
+    const orders = await getUserOrdersById(userId);
 
     res.send({
       status: 'ok',

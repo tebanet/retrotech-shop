@@ -31,7 +31,7 @@ const updateOffer = async (
   );
   if (resultStatus[0].order_status === 'rejected') {
     throw generateError(
-      `¡No puedes cambiar el estado de un pedido rechazado!`,
+      `¡No puedes cambiar el estado de un pedido cancelado!`,
       404
     );
   }

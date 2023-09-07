@@ -1,13 +1,13 @@
 const updateOrder = require('../../db/queries/produtos/updateOrder.js');
-const {
-  getUsernameByURL,
-} = require('../../db/queries/users/getUsernameByURL.js');
-
+const jwt = require('jsonwebtoken');
 const patchOrder = async (req, res, next) => {
   try {
-    const user = await getUsernameByURL(req.params.username);
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userId = decodedToken.id;
+    const userUsername = decodedToken.username;
 
-    if (user != req.headers.username) {
+    if (userUsername != req.params.username) {
       res.send({
         error: '400',
         message: '¡No eres el dueño de esta cuenta!',
@@ -16,16 +16,13 @@ const patchOrder = async (req, res, next) => {
       return;
     }
 
-    const { order_status } = req.body;
-
     const id_order = req.params.orderId;
 
-    await updateOrder(user, order_status, id_order);
+    await updateOrder(userId, id_order);
 
     res.send({
       status: 'ok',
-      message: `¡El pedido ${id_order} ha sido cancelado!`,
-      order_status: `${order_status}`,
+      message: `¡Has cancelado el pedido ${id_order}!`,
     });
   } catch (error) {
     next(error);

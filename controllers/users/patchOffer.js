@@ -1,13 +1,13 @@
 const updateOffer = require('../../db/queries/produtos/updateOffer.js');
-const {
-  getUsernameByURL,
-} = require('../../db/queries/users/getUsernameByURL.js');
+const jwt = require('jsonwebtoken');
 
 const patchOffer = async (req, res, next) => {
   try {
-    const user = await getUsernameByURL(req.params.username);
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userUsername = decodedToken.username;
 
-    if (user != req.headers.username) {
+    if (userUsername != req.params.username) {
       res.send({
         error: '400',
         message: '¡No eres el dueño de esta cuenta!',
