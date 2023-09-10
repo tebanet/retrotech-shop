@@ -94,10 +94,10 @@ const initDb = async () => {
     console.log('Creando administradores en la tabla users');
     await pool.query(`
     INSERT INTO users (id, email, username, password, active, role)
-    VALUES('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed', 'kaysera0@icloud.com', 'kaysera14', '1234abcd!', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car', 'nadia.garcia.3588@gmail.com', 'nadiag88', '1234abcd!', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg', 'tebane@hotmail.com', 'tebane', '1234abcd!', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top', 'janeiro.bruno23@gmail.com', 'bjaneiro90', '1234abcd!', 1, 'admin');`);
+    VALUES('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed', 'kaysera0@icloud.com', 'kaysera14', '1234aBcD', 1, 'admin'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car', 'nadia.garcia.3588@gmail.com', 'nadiag88', '1234aBcD', 1, 'admin'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg', 'tebane@hotmail.com', 'tebane', '1234aBcD', 1, 'admin'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top', 'janeiro.bruno23@gmail.com', 'bjaneiro90', '1234aBcD', 1, 'admin');`);
 
     console.log('Creando productos en la tabla productos');
     await pool.query(`
