@@ -6,7 +6,6 @@ const modifyUser = require('../../db/queries/users/modifyUser.js');
 const selectUserById = require('../../db/queries/users/selectUserById.js');
 const profilePicsPath = path.join(__dirname, '..', '..', 'profile_pics');
 const jwt = require('jsonwebtoken');
-const { generateError } = require('../../helpers/generateError.js');
 
 const updateUserProfile = async (req, res, next) => {
   try {
@@ -14,56 +13,63 @@ const updateUserProfile = async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET);
     const userId = decodedToken.id;
 
-    const { email, username, password, bio, profile_pic, address } = req.body;
-
     await updateUserSchema.validateAsync(req.body);
-
-    let hashedPassword;
 
     const user = await selectUserById(userId);
 
-    if ('username' in req.body) {
-      user.username = req.body.username;
-    }
-
-    if ('email' in req.body) {
-      user.email = req.body.email;
-    }
-
-    if ('bio' in req.body) {
-      user.bio = req.body.bio;
-    }
+    const updatedUser = {
+      ...user,
+      ...(req.body.username && { username: req.body.username }),
+      ...(req.body.email && { email: req.body.email }),
+      ...(req.body.bio && { bio: req.body.bio }),
+      ...(req.body.address && { address: req.body.address }),
+    };
+    console.log('req.body:', req.body);
+    console.log('req.body.password:', req.body.password);
+    console.log('user.password:', user.password);
 
     if ('password' in req.body) {
-      user.hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const isPasswordValid = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
+
+      if (!isPasswordValid) {
+        return res.status(401).json({ error: 'La contraseña es incorrecta' });
+      }
+    } else {
+      return res.status(400).json({ error: 'La contraseña es obligatoria' });
     }
 
     if (req.files?.profile_pic) {
-      const profilePicPath = path.join(profilePicsPath, `user${id}.`);
+      const originalFileName = req.files.profile_pic.name;
+      const extension = path.extname(originalFileName);
+      const profilePicPath = path.join(
+        profilePicsPath,
+        `Profile_Pic_${userId}.${extension}`
+      );
       await sharp(req.files.profile_pic.data)
         .resize(200, 200)
         .toFile(profilePicPath);
-      user.profile_pic = profilePicPath;
-    }
-
-    if ('address' in req.body) {
-      user.address = req.body.address;
+      updatedUser.profile_pic = profilePicPath;
     }
 
     const rowsAffected = await modifyUser(
       userId,
-      user.email,
-      user.username,
-      user.hashedPassword,
-      user.bio,
-      user.profile_pic,
-      user.address
+      updatedUser.email,
+      updatedUser.username,
+      updatedUser.hashedPassword,
+      updatedUser.bio,
+      updatedUser.profile_pic,
+      updatedUser.address
     );
 
     if (rowsAffected === 0) {
-      return res.status(400).json({ error: 'Failed to update user' });
+      return res
+        .status(400)
+        .json({ error: 'No hay ningún dato para actualizar' });
     }
-    return res.json(user);
+    return res.json(updatedUser);
   } catch (error) {
     next(error);
   }
