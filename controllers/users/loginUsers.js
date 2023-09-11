@@ -26,9 +26,9 @@ const loginUser = async (req, res, next) => {
       throw generateError('El email o la contraseña son incorrectos', 400);
     }
 
-    const { id, username } = userDB;
+    const { id, username, profilePic } = userDB;
 
-    const tokenPayLoad = { id, username, email };
+    const tokenPayLoad = { id, username, email, profilePic };
 
     const expiresIn = '30d';
 
