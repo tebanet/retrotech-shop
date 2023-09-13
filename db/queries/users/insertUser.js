@@ -12,7 +12,7 @@ const insertUser = async ({
 
     const [{ insertID }] = await pool.query(
       `INSERT INTO users 
-    (id, email, password, username, registrationCode) VALUES (?, ?, ?, ?, ?)`,
+    (id, email, password, username, registrationCode, profile_pic) VALUES (?, ?, ?, ?, ?, '1AQ8TguRC983rf83EIasbUnf.jpg')`,
       [id, email, password, username, registrationCode]
     );
 

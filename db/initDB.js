@@ -93,21 +93,21 @@ const initDb = async () => {
 
     console.log('Creando administradores en la tabla users');
     await pool.query(`
-    INSERT INTO users (id, email, username, password, active, role)
-    VALUES('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed', 'kaysera0@icloud.com', 'kaysera14', '1234aBcD', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car', 'nadia.garcia.3588@gmail.com', 'nadiag88', '1234aBcD', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg', 'tebane@hotmail.com', 'tebane', '1234aBcD', 1, 'admin'),
-          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top', 'janeiro.bruno23@gmail.com', 'bjaneiro90', '1234aBcD', 1, 'admin');`);
+    INSERT INTO users (id, email, username, password, active, role, profile_pic)
+    VALUES('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed', 'kaysera0@icloud.com', 'kaysera14', '1234aBcD', 1, 'admin', '1AQ8TguRC983rf83EIasbUnf.jpg'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car', 'nadia.garcia.3588@gmail.com', 'nadiag88', '1234aBcD', 1, 'admin', '1AQ8TguRC983rf83EIasbUnf.jpg'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg', 'tebane@hotmail.com', 'tebane', '1234aBcD', 1, 'admin', '1AQ8TguRC983rf83EIasbUnf.jpg'),
+          ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top', 'janeiro.bruno23@gmail.com', 'bjaneiro90', '1234aBcD', 1, 'admin', '1AQ8TguRC983rf83EIasbUnf.jpg');`);
 
     console.log('Creando productos en la tabla productos');
     await pool.query(`
     INSERT INTO product(product_title, product_image, category, description, price, status, place_of_sale, location, id_seller)
-    VALUES('MasterSystem', 'img_1', 'videogame', '1986 Home Video Game Console', '250.00', 'available', 'online', 'Asturias', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
-          ('Playstation1', 'img_2', 'videogame', '2000 Home Video Game Console', '135.00', 'sold out', 'delivery', 'Canarias', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car'),
-          ('Pentium1', 'img_3', 'pc', '1988 Home Pc', '335.00', 'sold out', 'delivery', 'Cantabria', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top'),
-          ('Macintosh I', 'img_4', 'pc', '1985 Apple Home Pc', '298.00', 'reserved', 'online', 'Balears', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg'),
-          ('Swiss+go', 'img_5', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
-          ('Kodak EKtar', 'img_6', 'photo/video', '1992 Analogic Photo Camera', '55.00', 'reserved', 'delivery', 'Madrid', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car');
+    VALUES('MasterSystem', '1AQ8TguRC983rf83EIasbUnf.jpg', 'videogame', '1986 Home Video Game Console', '250.00', 'available', 'online', 'Asturias', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Playstation1', '1AQ8TguRC983rf83EIasbUnf.jpg', 'videogame', '2000 Home Video Game Console', '135.00', 'sold out', 'delivery', 'Canarias', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car'),
+          ('Pentium1', '1AQ8TguRC983rf83EIasbUnf.jpg', 'pc', '1988 Home Pc', '335.00', 'sold out', 'delivery', 'Cantabria', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top'),
+          ('Macintosh I', '1AQ8TguRC983rf83EIasbUnf.jpg', 'pc', '1985 Apple Home Pc', '298.00', 'reserved', 'online', 'Balears', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Kodak EKtar', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1992 Analogic Photo Camera', '55.00', 'reserved', 'delivery', 'Madrid', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car');
 `);
 
     process.exit(0);
