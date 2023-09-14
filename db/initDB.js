@@ -107,6 +107,17 @@ const initDb = async () => {
           ('Pentium1', '1AQ8TguRC983rf83EIasbUnf.jpg', 'pc', '1988 Home Pc', '335.00', 'sold out', 'delivery', 'Cantabria', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4top'),
           ('Macintosh I', '1AQ8TguRC983rf83EIasbUnf.jpg', 'pc', '1985 Apple Home Pc', '298.00', 'reserved', 'online', 'Balears', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4leg'),
           ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
+          ('Swiss+go', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1980 Analogic Photo Camera', '45.00', 'available', 'online', 'Aragón', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'),
           ('Kodak EKtar', '1AQ8TguRC983rf83EIasbUnf.jpg', 'photo/video', '1992 Analogic Photo Camera', '55.00', 'reserved', 'delivery', 'Madrid', '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4car');
 `);
 
