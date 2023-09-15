@@ -33,7 +33,7 @@ const postUsers = async (req, res, next) => {
       to: email,
       from: process.env.SMTP_USER,
       subject: 'Validar tu cuenta en RetroTech Shop',
-      text: `¡Hola ${username}! \n Gracias por registrarte. \n Para completar tu registro, usa el siguiente enlace: http://localhost:${port}/users/validate/${registrationCode};.`,
+      text: `¡Hola ${username}! \nGracias por registrarte. \nPara completar tu registro, usa el siguiente código: ${registrationCode} \n¡Buenas compras!`,
     };
 
     await sgMail.send(msg);
