@@ -3,7 +3,6 @@ const newUserSchema = require('../../schemas/users/newUser.js');
 const insertUser = require('../../db/queries/users/insertUser.js');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
-const { port } = require('../../config.js');
 const { v4: uuidv4 } = require('uuid');
 
 // SendGrid Key

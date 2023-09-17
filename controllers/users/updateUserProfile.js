@@ -24,9 +24,6 @@ const updateUserProfile = async (req, res, next) => {
       ...(req.body.bio && { bio: req.body.bio }),
       ...(req.body.address && { address: req.body.address }),
     };
-    console.log('req.body:', req.body);
-    console.log('req.body.password:', req.body.password);
-    console.log('user.password:', user.password);
 
     if ('password' in req.body) {
       const isPasswordValid = await bcrypt.compare(
@@ -58,7 +55,6 @@ const updateUserProfile = async (req, res, next) => {
       userId,
       updatedUser.email,
       updatedUser.username,
-      updatedUser.hashedPassword,
       updatedUser.bio,
       updatedUser.profile_pic,
       updatedUser.address
