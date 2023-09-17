@@ -28,7 +28,7 @@ const initDb = async () => {
         address VARCHAR(100),
         role ENUM('admin', 'user') DEFAULT 'user',
         registrationCode VARCHAR(100),
-        recoveryPassCode VARCHAR(100),
+        recoveryToken VARCHAR(100),
         active BOOLEAN DEFAULT false,
         createdAt DATETIME NOT NULL DEFAULT NOW(),
         modifiedAt DATETIME
