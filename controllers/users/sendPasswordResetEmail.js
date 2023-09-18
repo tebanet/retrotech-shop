@@ -10,13 +10,21 @@ const sendPasswordResetEmail = async (req, res, next) => {
     const { email } = req.body;
 
     const user = await selectUserByEmail(email);
+
+    if (!user) {
+      return res.status(400).json({
+        message:
+          'El correo electrónico no está registrado en nuestra base de datos.',
+      });
+    }
+
     await saveResetTokenToDatabase(user.id, recoveryToken);
 
     await sendResetEmail(email, recoveryToken);
 
     res.json({
       message:
-        'El mensaje para recuperar la contraseña se ha enviado con éxito.',
+        'El código para recuperar la contraseña se ha enviado con éxito.',
     });
   } catch (error) {
     next(error);
