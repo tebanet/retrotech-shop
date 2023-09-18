@@ -47,6 +47,7 @@ const validateUser = require('./controllers/users/validateUser.js');
 const updateUserProfile = require('./controllers/users/updateUserProfile.js');
 const getProductByLocation = require('./controllers/products/getProductByLocation.js');
 const sendPasswordResetEmail = require('./controllers/users/sendPasswordResetEmail.js');
+const changePassword = require('./controllers/users/changePassword.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -62,6 +63,7 @@ app.get('/:username', getUserData);
 app.get('/users/validate/:registrationCode', validateUser);
 app.put('/users/update/:id', authUser, updateUserProfile);
 app.post('/users/reset-password', sendPasswordResetEmail);
+app.post('/users/change-password', changePassword);
 
 // Rutas de Pedidos
 app.post('/product/:id/order', authUser, postOrder); // Hacer pedido
