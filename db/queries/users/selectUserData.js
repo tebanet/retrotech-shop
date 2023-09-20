@@ -23,7 +23,9 @@ WHERE
     [username]
   );
 
-  if (user[0].username) {
+  console.log(user[0]);
+
+  if (user[0].username === null) {
     throw generateError(`El usuario ${username} no existe`, 404);
   }
 
