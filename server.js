@@ -70,7 +70,7 @@ app.post('/users/change-password', changePassword);
 app.post('/users/check-email', checkEmail);
 
 // Rutas de Pedidos
-app.post('/product/:id/order', authUser, postOrder); // Hacer pedido
+app.post('/products/:id/order', authUser, postOrder); // Hacer pedido
 app.get('/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
 app.patch('/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
 app.get('/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
@@ -81,11 +81,11 @@ app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil
 app.post('/:username/my-orders/:orderID/rate', authUser, rateOrder); // Valorar una compra
 
 // Rutas de Produtos
-app.post('/', authUser, newProduct); //middleware associado para autenticação
+app.post('/products/new', authUser, newProduct); //middleware associado para autenticação
 app.get('/', getProducts);
 app.get('/category/:category', getProductByCategory);
-app.get('/product/:id', getSingleProduct);
-app.delete('/product/:id', authUser, deletesingleProduct);
+app.get('/products/:id', getSingleProduct);
+app.delete('/products/:id', authUser, deletesingleProduct);
 app.get('/search/name/:letter', getProductByName);
 app.get('/search/price/:min-:max', getProductByPrice);
 app.get('/search/category/:letter', getProductByCategoryLike);
