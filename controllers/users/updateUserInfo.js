@@ -16,8 +16,8 @@ const updateUserInfo = async (req, res, next) => {
 
     const updatedUser = {
       ...user,
-      ...(req.body.username && { username: req.body.username }),
       ...(req.body.email && { email: req.body.email }),
+      ...(req.body.username && { username: req.body.username }),
       ...(req.body.bio && { bio: req.body.bio }),
       ...(req.body.address && { address: req.body.address }),
     };

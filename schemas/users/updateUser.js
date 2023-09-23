@@ -1,11 +1,12 @@
 const Joi = require('joi');
 
 const updateUserSchema = Joi.object({
-  email: Joi.string().email().min(4).max(100).messages({
+  id: Joi.string(),
+  email: Joi.string().email().allow('').min(4).max(100).messages({
     'string.min': 'El correo electrónico debe tener más de 4 caracteres.',
     'string.max': 'El correo electrónico debe tener menos de 100 caracteres.',
   }),
-  username: Joi.string().min(4).max(100).messages({
+  username: Joi.string().allow('').min(4).max(100).messages({
     'string.min': 'El nombre de usuario debe tener más de 4 caracteres.',
     'string.max': 'El nombre de usuario debe tener menos de 100 caracteres.',
   }),
@@ -18,11 +19,11 @@ const updateUserSchema = Joi.object({
       'any.required':
         'Por motivos de seguridad, es obligatorio que coloques tu contraseña.',
     }),
-  bio: Joi.string().min(4).max(255).messages({
+  bio: Joi.string().allow('').min(4).max(255).messages({
     'string.min': 'La biografía debe tener más de 4 caracteres.',
     'string.max': 'La biografía debe tener menos de 255 caracteres.',
   }),
-  address: Joi.string().min(4).max(100).messages({
+  address: Joi.string().allow('').min(4).max(100).messages({
     'string.min': 'La biografía debe tener más de 4 caracteres.',
     'string.max': 'La biografía debe tener menos de 100 caracteres.',
   }),

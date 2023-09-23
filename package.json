@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/tebanet/retrotech-shop#readme",
   "dependencies": {
+    "@faker-js/faker": "^8.1.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
