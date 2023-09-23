@@ -73,10 +73,10 @@ app.post('/users/check-email', checkEmail);
 
 // Rutas de Pedidos
 app.post('/products/:id/order', authUser, postOrder); // Hacer pedido
-app.get('/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
-app.patch('/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
-app.get('/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
-app.patch('/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos
+app.get('/users/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
+app.patch('/users/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
+app.get('/users/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
+app.patch('/users/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos
 
 // Rutas de valoraciones
 app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil

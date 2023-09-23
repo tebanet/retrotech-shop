@@ -1,7 +1,7 @@
 const getPool = require('../../getDB.js');
 const { generateError } = require('../../../helpers/generateError.js');
 
-const getUserOffersById = async (username) => {
+const getUserOffersById = async (userId) => {
   const pool = await getPool();
 
   const [result] = await pool.query(
@@ -16,14 +16,14 @@ const getUserOffersById = async (username) => {
     FROM product
       INNER JOIN orders ON product.product_id = orders.id_product
       INNER JOIN users ON orders.id_buyer = users.id
-      WHERE orders.id_seller = (SELECT id FROM users WHERE username = ?)
+      WHERE orders.id_seller = (SELECT id FROM users WHERE id = ?)
       ORDER BY orders.order_date DESC;
   `,
-    [username]
+    [userId]
   );
 
   if (result.length === 0) {
-    throw generateError(`${username}, ¡todavía no tienes pedidos!`, 404);
+    throw generateError(`¡Todavía no tienes pedidos!`, 404);
   }
 
   return result;
