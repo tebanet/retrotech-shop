@@ -19,26 +19,32 @@ const patchOffer = async (req, res, next) => {
     const { order_status, delivery_date, delivery_place, delivery_status } =
       req.body;
 
-    if (!delivery_date) {
-      res.send({
-        error: '400',
-        message: '¡Tienes que indicar cuando has mandado el pedido!',
-      });
-    }
+    /* if (order_status == 'accepted') {
+      try {
+        if (!delivery_date) {
+          res.send({
+            error: '400',
+            message: '¡Tienes que indicar cuando has mandado el pedido!',
+          });
+        }
 
-    if (!delivery_place) {
-      res.send({
-        error: '400',
-        message: '¡Tienes que indicar donde va el pedido!',
-      });
-    }
+        if (!delivery_place) {
+          res.send({
+            error: '400',
+            message: '¡Tienes que indicar donde va el pedido!',
+          });
+        }
 
-    if (!delivery_status) {
-      res.send({
-        error: '400',
-        message: '¡Tienes que indicar el estado del pedido!',
-      });
-    }
+        if (!delivery_status) {
+          res.send({
+            error: '400',
+            message: '¡Tienes que indicar el estado del pedido!',
+          });
+        }
+      } catch (error) {
+        next(error);
+      }
+    } */
 
     const id_order = req.params.orderId;
 

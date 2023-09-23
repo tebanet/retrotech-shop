@@ -9,6 +9,7 @@ const getUserOrdersById = async (userId) => {
       orders.orderId,
       product.product_image,
       product.product_title,
+      product.product_id,
       product.price,
       users.username AS seller,
       orders.order_status,
