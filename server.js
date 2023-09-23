@@ -44,12 +44,13 @@ const getRatings = require('./controllers/users/getRatings.js');
 const rateOrder = require('./controllers/users/rateOrder.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
 const validateUser = require('./controllers/users/validateUser.js');
-const updateUserProfile = require('./controllers/users/updateUserProfile.js');
 const getProductByLocation = require('./controllers/products/getProductByLocation.js');
 const sendPasswordResetEmail = require('./controllers/users/sendPasswordResetEmail.js');
 const changePassword = require('./controllers/users/changePassword.js');
 const checkEmail = require('./controllers/users/checkEmail.js');
 const getUserProducts = require('./controllers/users/getUserProducts.js');
+const updateUserInfo = require('./controllers/users/updateUserInfo.js');
+const updateUserProfilePic = require('./controllers/users/updateUserProfilePic.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -64,7 +65,8 @@ app.get('/users/:username/products', getUserProducts);
 app.post('/users/login', loginUser);
 app.get('/users/:username', getUserData);
 app.get('/users/validate/:registrationCode', validateUser);
-app.put('/users/update/:id', authUser, updateUserProfile);
+app.put('/users/update/info/:id', authUser, updateUserInfo);
+app.put('/users/update/pic/:id', authUser, updateUserProfilePic);
 app.post('/users/reset-password', sendPasswordResetEmail);
 app.post('/users/change-password', changePassword);
 app.post('/users/check-email', checkEmail);

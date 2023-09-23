@@ -1,13 +1,10 @@
 const bcrypt = require('bcrypt');
 const updateUserSchema = require('../../schemas/users/updateUser.js');
-const path = require('path');
-const sharp = require('sharp');
-const modifyUser = require('../../db/queries/users/modifyUserInfo.js');
+const modifyUserInfo = require('../../db/queries/users/modifyUserInfo.js');
 const selectUserById = require('../../db/queries/users/selectUserById.js');
-const profilePicsPath = path.join(__dirname, '..', '..', 'profile_pics');
 const jwt = require('jsonwebtoken');
 
-const updateUserProfile = async (req, res, next) => {
+const updateUserInfo = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const decodedToken = jwt.verify(token, process.env.SECRET);
@@ -38,25 +35,11 @@ const updateUserProfile = async (req, res, next) => {
       return res.status(400).json({ error: 'La contraseña es obligatoria' });
     }
 
-    if (req.files?.profile_pic) {
-      const originalFileName = req.files.profile_pic.name;
-      const extension = path.extname(originalFileName);
-      const profilePicPath = path.join(
-        profilePicsPath,
-        `Profile_Pic_${userId}.${extension}`
-      );
-      await sharp(req.files.profile_pic.data)
-        .resize(200, 200)
-        .toFile(profilePicPath);
-      updatedUser.profile_pic = profilePicPath;
-    }
-
-    const rowsAffected = await modifyUser(
+    const rowsAffected = await modifyUserInfo(
       userId,
       updatedUser.email,
       updatedUser.username,
       updatedUser.bio,
-      updatedUser.profile_pic,
       updatedUser.address
     );
 
@@ -71,4 +54,4 @@ const updateUserProfile = async (req, res, next) => {
   }
 };
 
-module.exports = updateUserProfile;
+module.exports = updateUserInfo;
