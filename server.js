@@ -98,6 +98,7 @@ app.use(morgan('dev'));
 
 // permite abrir o browser com o nome da foto para carregar a mesma
 app.use('/uploads', express.static('./uploads'));
+app.use('/profile_pics', express.static('./profile_pics'));
 
 // Middleware de 404
 app.use((error, req, res, next) => {
