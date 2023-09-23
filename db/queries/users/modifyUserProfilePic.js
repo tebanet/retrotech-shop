@@ -9,7 +9,7 @@ const modifyUserProfilePic = async (userId, resizedImage) => {
       UPDATE users SET profile_pic = ?
       WHERE id = ?
     `,
-      [userId, resizedImage]
+      [resizedImage, userId]
     );
 
     return result.affectedRows;
