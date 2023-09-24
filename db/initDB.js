@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 const getDB = require('./getDB.js');
 const { v4: uuidv4 } = require('uuid');
@@ -92,12 +93,17 @@ const initDb = async () => {
         );`
     );
 
+    const defaultPassword = 'Pass1234';
+    const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
     console.log('Creando administradores en la tabla users');
     await pool.query(`
-    INSERT INTO users (id, email, username, password, active, role, profile_pic)
-    VALUES('7e6b4ea2-4be6-4a0f-85a6-95d3dfaa0c7f', 'kaysera0@icloud.com', 'kaysera14', 'Pass1234', 1, 'admin', 'https://i.pravatar.cc/150?img=14'),
-          ('acac4b95-9a74-4b0b-afe2-6f6e39d1c318', 'tebane@hotmail.com', 'tebanetcheverry', 'Pass1234', 1, 'admin', 'https://i.pravatar.cc/150?img=3'),
-          ('b8c44bf6-d301-4d28-b674-8eb1269a3f2b', 'janeiro.bruno23@gmail.com', 'bjaneiro90', 'Pass1234', 1, 'admin', 'https://i.pravatar.cc/150?img=12');`);
+      INSERT INTO users (id, email, username, password, active, role, profile_pic)
+      VALUES
+        ('7e6b4ea2-4be6-4a0f-85a6-95d3dfaa0c7f', 'kaysera0@icloud.com', 'kaysera14', '${hashedPassword}', 1, 'admin', 'https://i.pravatar.cc/150?img=14'),
+        ('acac4b95-9a74-4b0b-afe2-6f6e39d1c318', 'tebane@hotmail.com', 'tebanetcheverry', '${hashedPassword}', 1, 'admin', 'https://i.pravatar.cc/150?img=3'),
+        ('b8c44bf6-d301-4d28-b674-8eb1269a3f2b', 'janeiro.bruno23@gmail.com', 'bjaneiro90', '${hashedPassword}', 1, 'admin', 'https://i.pravatar.cc/150?img=12');
+    `);
 
     console.log('Creando usuarios en la tabla users');
     await pool.query(`
