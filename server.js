@@ -39,6 +39,8 @@ const patchOffer = require('./controllers/users/patchOffer.js');
 const patchOrder = require('./controllers/users/patchOrder.js');
 const getRatings = require('./controllers/users/getRatings.js');
 const rateOrder = require('./controllers/users/rateOrder.js');
+const getUserOffers = require('./controllers/users/getUserOffers.js');
+const getUnrated = require('./controllers/users/getUnrated.js');
 
 // Products controllers
 const getProductByName = require('./controllers/products/getProductByName.js');
@@ -51,7 +53,6 @@ const postOrder = require('./controllers/products/postOrder.js');
 const getProductByCategory = require('./controllers/products/productByCategory.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
 const getProductByLocation = require('./controllers/products/getProductByLocation.js');
-const getUserOffers = require('./controllers/users/getUserOffers.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
