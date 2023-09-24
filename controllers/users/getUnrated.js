@@ -1,21 +1,19 @@
-const {
-  getAllUserProducts,
-} = require('../../db/queries/produtos/getUserProducts');
+const selectUserUnrated = require('../../db/queries/users/selectUserUnrated');
 const { getIdByUsername } = require('../../db/queries/users/getIdByUsername');
 const { getUsernameByURL } = require('../../db/queries/users/getUsernameByURL');
 
-const getUserProducts = async (req, res, next) => {
+const getUnrated = async (req, res, next) => {
   try {
     const username = await getUsernameByURL(req.params.username);
     const userId = await getIdByUsername(username);
-    const products = await getAllUserProducts(userId);
+    const ratings = await selectUserUnrated(userId);
     res.send({
       status: 'ok',
-      data: products,
+      data: ratings,
     });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = getUserProducts;
+module.exports = getUnrated;
