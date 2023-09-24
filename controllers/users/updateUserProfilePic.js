@@ -4,7 +4,11 @@ const path = require('path');
 const sharp = require('sharp');
 const { createPathIfNotExists } = require('../../helpers/generateError');
 
-const HOST = process.env.HOST || 'http://localhost:3000';
+const HOST =
+  'http://' +
+  (process.env.HOST || 'localhost') +
+  ':' +
+  (process.env.PORT || 3000);
 
 async function updateUserProfilePic(req, res, next) {
   try {
@@ -33,7 +37,6 @@ async function updateUserProfilePic(req, res, next) {
     }
 
     const picURL = `${HOST}/profile_pics/${resizedImage}`;
-    console.log(picURL);
 
     const rowsAffected = await modifyUserProfilePic(userId, picURL);
     if (rowsAffected === 0) {

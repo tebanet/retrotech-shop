@@ -8,6 +8,13 @@ const { v4: uuidv4 } = require('uuid');
 // SendGrid Key
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
+//HOST
+const HOST =
+  'http://' +
+  (process.env.HOST || 'localhost') +
+  ':' +
+  (process.env.PORT || 3000);
+
 const postUsers = async (req, res, next) => {
   try {
     await newUserSchema.validateAsync(req.body);
@@ -20,11 +27,14 @@ const postUsers = async (req, res, next) => {
 
     const registrationCode = crypto.randomUUID();
 
+    const defaultUserPic = `${HOST}/profile_pics/default_profile_pic.webp`;
+
     const userId = await insertUser({
       id,
       ...req.body,
       password: hashedPassword,
       registrationCode: registrationCode,
+      profile_pic: defaultUserPic,
     });
 
     // Enviar el correo de validación
