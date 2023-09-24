@@ -22,9 +22,11 @@ const sendPasswordResetEmail = async (req, res, next) => {
 
     await sendResetEmail(email, recoveryToken);
 
-    res.json({
+    res.status(201).send({
       message:
         'El código para recuperar la contraseña se ha enviado con éxito.',
+      status: 'ok',
+      data: { email, recoveryToken },
     });
   } catch (error) {
     next(error);

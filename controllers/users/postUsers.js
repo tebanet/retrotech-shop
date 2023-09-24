@@ -15,6 +15,13 @@ const HOST =
   ':' +
   (process.env.PORT || 3000);
 
+//FRONTEND
+const FRONT =
+  'http://' +
+  (process.env.FRONT_HOST || 'localhost') +
+  ':' +
+  (process.env.FRONT_PORT || 5137);
+
 const postUsers = async (req, res, next) => {
   try {
     await newUserSchema.validateAsync(req.body);
@@ -27,7 +34,7 @@ const postUsers = async (req, res, next) => {
 
     const registrationCode = crypto.randomUUID();
 
-    const defaultUserPic = `${HOST}/profile_pics/default_profile_pic.webp`;
+    const defaultUserPic = `${FRONT}/profile_pics/default_profile_pic.webp`;
 
     const userId = await insertUser({
       id,
@@ -42,7 +49,7 @@ const postUsers = async (req, res, next) => {
       to: email,
       from: process.env.SMTP_USER,
       subject: 'Validar tu cuenta en RetroTech Shop',
-      text: `¡Hola ${username}! \n\nGracias por registrarte. \n\nPara completar tu registro, usa el siguiente código: ${registrationCode} \n\n¡Buenas compras!`,
+      text: `¡Hola ${username}! \n\nGracias por registrarte. \n\nPara completar tu registro, usa el siguiente código: ${registrationCode} \n\nSi lo deseas puedes haz click en el siguiente enlace: ${FRONT}/users/validate?registrationCode=${registrationCode}\n\n¡Buenas compras!`,
     };
 
     await sgMail.send(msg);

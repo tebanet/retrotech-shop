@@ -25,6 +25,20 @@ const { authUser } = require('./middlewares/auth.js');
 // Users controllers
 const postUsers = require('./controllers/users/postUsers.js');
 const loginUser = require('./controllers/users/loginUsers.js');
+const getUserData = require('./controllers/users/getUserData.js');
+const getUserOrders = require('./controllers/users/getUserOrders.js');
+const validateUser = require('./controllers/users/validateUser.js');
+const sendPasswordResetEmail = require('./controllers/users/sendPasswordResetEmail.js');
+const changePassword = require('./controllers/users/changePassword.js');
+const checkEmail = require('./controllers/users/checkEmail.js');
+const updateUserInfo = require('./controllers/users/updateUserInfo.js');
+const updateUserProfilePic = require('./controllers/users/updateUserProfilePic.js');
+const getUserProducts = require('./controllers/users/getUserProducts.js');
+const checkRecoveryToken = require('./controllers/users/checkRecoveryToken.js');
+const patchOffer = require('./controllers/users/patchOffer.js');
+const patchOrder = require('./controllers/users/patchOrder.js');
+const getRatings = require('./controllers/users/getRatings.js');
+const rateOrder = require('./controllers/users/rateOrder.js');
 
 // Products controllers
 const getProductByName = require('./controllers/products/getProductByName.js');
@@ -35,22 +49,9 @@ const newProduct = require('./controllers/products/newProduct.js');
 const deletesingleProduct = require('./controllers/products/deleteProduct.js');
 const postOrder = require('./controllers/products/postOrder.js');
 const getProductByCategory = require('./controllers/products/productByCategory.js');
-const getUserData = require('./controllers/users/getUserData.js');
-const getUserOrders = require('./controllers/users/getUserOrders.js');
-const getUserOffers = require('./controllers/users/getUserOffers.js');
-const patchOffer = require('./controllers/users/patchOffer.js');
-const patchOrder = require('./controllers/users/patchOrder.js');
-const getRatings = require('./controllers/users/getRatings.js');
-const rateOrder = require('./controllers/users/rateOrder.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
-const validateUser = require('./controllers/users/validateUser.js');
 const getProductByLocation = require('./controllers/products/getProductByLocation.js');
-const sendPasswordResetEmail = require('./controllers/users/sendPasswordResetEmail.js');
-const changePassword = require('./controllers/users/changePassword.js');
-const checkEmail = require('./controllers/users/checkEmail.js');
-const getUserProducts = require('./controllers/users/getUserProducts.js');
-const updateUserInfo = require('./controllers/users/updateUserInfo.js');
-const updateUserProfilePic = require('./controllers/users/updateUserProfilePic.js');
+const getUserOffers = require('./controllers/users/getUserOffers.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -70,6 +71,7 @@ app.put('/users/update/pic/:id', authUser, updateUserProfilePic);
 app.post('/users/reset-password', sendPasswordResetEmail);
 app.post('/users/change-password', changePassword);
 app.post('/users/check-email', checkEmail);
+app.post('/users/check-token', checkRecoveryToken);
 
 // Rutas de Pedidos
 app.post('/products/:id/order', authUser, postOrder); // Hacer pedido

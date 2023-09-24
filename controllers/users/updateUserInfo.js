@@ -15,11 +15,11 @@ const updateUserInfo = async (req, res, next) => {
     const user = await selectUserById(userId);
 
     const updatedUser = {
-      ...user,
       ...(req.body.email && { email: req.body.email }),
       ...(req.body.username && { username: req.body.username }),
       ...(req.body.bio && { bio: req.body.bio }),
       ...(req.body.address && { address: req.body.address }),
+      ...user,
     };
 
     if ('password' in req.body) {
@@ -35,12 +35,15 @@ const updateUserInfo = async (req, res, next) => {
       return res.status(400).json({ error: 'La contraseña es obligatoria' });
     }
 
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
     const rowsAffected = await modifyUserInfo(
-      userId,
       updatedUser.email,
       updatedUser.username,
       updatedUser.bio,
-      updatedUser.address
+      updatedUser.address,
+      (updatedUser.password = hashedPassword),
+      userId
     );
 
     if (rowsAffected === 0) {
