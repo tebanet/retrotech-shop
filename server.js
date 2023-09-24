@@ -51,6 +51,7 @@ const checkEmail = require('./controllers/users/checkEmail.js');
 const getUserProducts = require('./controllers/users/getUserProducts.js');
 const updateUserInfo = require('./controllers/users/updateUserInfo.js');
 const updateUserProfilePic = require('./controllers/users/updateUserProfilePic.js');
+const getUnrated = require('./controllers/users/getUnrated.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -79,8 +80,9 @@ app.get('/users/:username/my-offers', authUser, getUserOffers); // Peticiones de
 app.patch('/users/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos
 
 // Rutas de valoraciones
-app.get('/:username/ratings', getRatings); // Ver valoraciones de un perfil
-app.post('/:username/my-orders/:orderID/rate', authUser, rateOrder); // Valorar una compra
+app.get('/users/:username/ratings', getRatings); // Ver valoraciones de un perfil
+app.get('/users/:username/unrated', getUnrated); //Ver pedidos pendientes de valorar
+app.post('/users/:username/my-orders/:orderID/rate', authUser, rateOrder); // Valorar una compra
 
 // Rutas de Produtos
 app.post('/products/new', authUser, newProduct); //middleware associado para autenticação
