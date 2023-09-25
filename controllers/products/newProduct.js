@@ -1,29 +1,23 @@
-const { generateError } = require('../../helpers/generateError.js');
 const { createProduct } = require('../../db/queries/produtos/createProduct.js');
 const { createPathIfNotExists } = require('../../helpers/generateError.js');
 const path = require('path');
 const sharp = require('sharp');
 const { nanoid } = require('nanoid');
+const newProductSchema = require('../../schemas/users/newProductSchema.js');
 
 const newProductController = async (req, res, next) => {
   try {
     const {
       product_title,
-      product_image,
       category,
       price,
       description,
       status,
-      location,
       place_of_sale,
+      location,
     } = req.body;
 
-    if (!price) {
-      throw generateError(
-        'El producto que intentas agregar no tiene precio, por favor define un precio.',
-        400
-      );
-    }
+    await newProductSchema.validateAsync(req.body);
 
     let imageFileName;
 
@@ -55,9 +49,21 @@ const newProductController = async (req, res, next) => {
       location,
       req.userId
     );
+
     res.send({
       status: 'ok',
-      message: `El producto con ${product_title} se ha creado con éxito.`,
+      id,
+      data: {
+        product_title,
+        imageFileName,
+        category,
+        price,
+        description,
+        status,
+        place_of_sale,
+        location,
+      },
+      message: `${product_title} se ha publicado con éxito.`,
     });
   } catch (error) {
     next(error);

@@ -8,13 +8,6 @@ const { v4: uuidv4 } = require('uuid');
 // SendGrid Key
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
-//HOST
-const HOST =
-  'http://' +
-  (process.env.HOST || 'localhost') +
-  ':' +
-  (process.env.PORT || 3000);
-
 //FRONTEND
 const FRONT =
   'http://' +

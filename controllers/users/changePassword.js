@@ -28,7 +28,10 @@ const changePassword = async (req, res, next) => {
 
     await deleteResetTokenFromDatabase(user.id, token);
 
-    res.json({ message: 'La constraseña se ha cambiado con éxito.' });
+    res.send({
+      status: 'ok',
+      message: 'La constraseña se ha cambiado con éxito.',
+    });
   } catch (error) {
     next(error);
   }

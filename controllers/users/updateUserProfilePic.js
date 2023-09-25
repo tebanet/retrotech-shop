@@ -31,7 +31,7 @@ async function updateUserProfilePic(req, res, next) {
           if (err) {
             console.error(err);
           } else {
-            console.log('Image resized and saved:', info);
+            console.log('Imagen comprimida y guardada:', info);
           }
         });
     }
