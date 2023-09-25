@@ -8,7 +8,6 @@ const checkRecoveryToken = async (req, res, next) => {
 
     if (user) {
       res.status(200).json({
-        message: 'Usuario econtrado en la base de datos.',
         data: { user },
       });
     } else {
