@@ -21,19 +21,17 @@ const newProductController = async (req, res, next) => {
 
     let imageFileName;
 
-    if (req.files && req.files.image) {
-      // // Crio o path do diretório uploads
+    if (req.files && req.files.product_image) {
       const uploadsDir = path.join(__dirname, '../../uploads');
 
-      // Criar diretório se não existe
       await createPathIfNotExists(uploadsDir);
 
-      // // Processar a imagem
-      const image = sharp(req.files.image.data);
-      image.resize(1000);
+      const image = sharp(req.files.product_image.data);
+      const originalFileName = req.files.product_image.name;
+      const extension = path.extname(originalFileName);
+      image.resize(600, 600);
 
-      // // Guardo a imagem com um nome aleatório do diretório uploads
-      imageFileName = `${nanoid(24)}.jpg`; //nanoid atribui uma cadeia de texto unica a cada imagem
+      imageFileName = `${nanoid(24)}${extension}`;
 
       await image.toFile(path.join(uploadsDir, imageFileName));
     }
