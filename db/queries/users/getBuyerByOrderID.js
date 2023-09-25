@@ -9,7 +9,7 @@ const getBuyerByOrderID = async (id) => {
 
     const [result] = await connection.query(
       `
-        SELECT id_buyer FROM orders WHERE orderId= ?
+        SELECT id_buyer FROM orders WHERE order_id= ?
         `,
       [id]
     );

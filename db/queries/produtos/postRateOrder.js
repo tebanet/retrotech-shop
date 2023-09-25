@@ -15,7 +15,7 @@ const postRateOrder = async (
 
   const [orderStatus] = await connection.query(
     `
-    SELECT order_status FROM orders WHERE orderId = ?
+    SELECT order_status FROM orders WHERE order_id = ?
     `,
     [orderId]
   );
@@ -26,7 +26,7 @@ const postRateOrder = async (
 
   const [orderIsRated] = await connection.query(
     `
-    SELECT * FROM valoraciones WHERE orderId = ?
+    SELECT * FROM valoraciones WHERE order_id = ?
     `,
     [orderId]
   );
@@ -40,7 +40,7 @@ const postRateOrder = async (
 
   const [result] = await connection.query(
     `
-        INSERT INTO valoraciones (id_buyer, id_seller, id_product, valoracion, comentaries, orderId)
+        INSERT INTO valoraciones (id_buyer, id_seller, id_product, valoracion, comentaries, order_id)
         VALUES (?,?,?,?,?,?)
         `,
     [id_buyer, id_seller, id_product, valoracion, commentaries, orderId]

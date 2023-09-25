@@ -59,7 +59,7 @@ const initDb = async () => {
     console.log('Creando tabla de pedidos');
     await pool.query(
       `CREATE TABLE orders (
-        orderId INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        order_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         id_buyer VARCHAR(50) NOT NULL,
         id_seller VARCHAR(50) NOT NULL,
         id_product INT UNSIGNED NOT NULL,
@@ -82,14 +82,14 @@ const initDb = async () => {
         id_buyer VARCHAR(50) NOT NULL,
         id_seller VARCHAR(50) NOT NULL,
         id_product INT UNSIGNED NOT NULL,
-        orderId INT UNSIGNED NOT NULL,
+        order_id INT UNSIGNED NOT NULL,
         valoracion INT UNSIGNED NOT NULL,
         comentaries VARCHAR(200) NOT NULL,
         valoracion_date DATETIME NOT NULL DEFAULT NOW(),
         FOREIGN KEY (id_product) REFERENCES product(product_id),
         FOREIGN KEY (id_buyer) REFERENCES orders(id_buyer),
         FOREIGN KEY (id_seller) REFERENCES orders(id_seller),
-        FOREIGN KEY (orderId) REFERENCES orders(orderId)
+        FOREIGN KEY (order_id) REFERENCES orders(order_id)
         );`
     );
 

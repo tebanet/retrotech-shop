@@ -53,6 +53,7 @@ const postOrder = require('./controllers/products/postOrder.js');
 const getProductByCategory = require('./controllers/products/productByCategory.js');
 const getProductByPrice = require('./controllers/products/getProductByPrice.js');
 const getProductByLocation = require('./controllers/products/getProductByLocation.js');
+const getOrderInfo = require('./controllers/users/getOrderInfo.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -77,6 +78,7 @@ app.post('/users/check-token', checkRecoveryToken);
 // Rutas de Pedidos
 app.post('/products/:id/order', authUser, postOrder); // Hacer pedido
 app.get('/users/:username/my-orders', authUser, getUserOrders); // Peticiones de compra mandadas
+app.get('/users/:username/my-orders/:orderId', authUser, getOrderInfo); // Ver info de cada pedido
 app.patch('/users/:username/my-orders/:orderId', authUser, patchOrder); // Cancelar pedidos
 app.get('/users/:username/my-offers', authUser, getUserOffers); // Peticiones de compra recibidas
 app.patch('/users/:username/my-offers/:orderId', authUser, patchOffer); // Aceptar o rechazar pedidos

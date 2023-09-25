@@ -6,7 +6,7 @@ const getUserOrdersById = async (userId) => {
 
   const [result] = await pool.query(
     `SELECT
-      orders.orderId,
+      orders.order_id,
       product.product_image,
       product.product_title,
       product.product_id,
