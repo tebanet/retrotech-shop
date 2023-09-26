@@ -13,7 +13,7 @@ const FRONT =
   'http://' +
   (process.env.FRONT_HOST || 'localhost') +
   ':' +
-  (process.env.FRONT_PORT || 5137);
+  (process.env.FRONT_PORT || 5173);
 
 const postUsers = async (req, res, next) => {
   try {

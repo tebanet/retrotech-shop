@@ -12,7 +12,10 @@ const getUnrated = async (req, res, next) => {
       data: ratings,
     });
   } catch (error) {
-    next(error);
+    res.send({
+      error: '400',
+      message: 'No encontrado',
+    });
   }
 };
 
