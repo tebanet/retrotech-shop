@@ -24,7 +24,10 @@ const getUserOrders = async (req, res, next) => {
       orders: orders,
     });
   } catch (error) {
-    next(error);
+    res.send({
+      error: '400',
+      message: 'No has pedido nada',
+    });
   }
 };
 
