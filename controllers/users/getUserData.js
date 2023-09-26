@@ -9,7 +9,10 @@ const getUserData = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    next(error);
+    res.send({
+      error: '400',
+      message: 'No encontrado',
+    });
   }
 };
 

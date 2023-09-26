@@ -5,7 +5,15 @@ const getOrderInfoByParams = async (userId, orderId) => {
 
   const [result] = await pool.query(
     `
-    SELECT *, users.username
+    SELECT product.product_title,
+    product.product_image,
+    product.price,
+    product.category,
+    order_status,
+    product.location,
+    order_date,
+    product.description,
+    users.username
     FROM orders
     JOIN product ON product.product_id = orders.id_product
     LEFT JOIN users ON users.id = orders.id_seller

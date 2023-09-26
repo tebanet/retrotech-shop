@@ -18,7 +18,6 @@ const newProductController = async (req, res, next) => {
     } = req.body;
 
     await newProductSchema.validateAsync(req.body);
-
     let imageFileName;
     let product_image;
 
