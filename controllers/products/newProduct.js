@@ -20,6 +20,7 @@ const newProductController = async (req, res, next) => {
     await newProductSchema.validateAsync(req.body);
 
     let imageFileName;
+    let product_image;
 
     if (req.files && req.files.product_image) {
       const uploadsDir = path.join(__dirname, '../../uploads');
@@ -34,11 +35,13 @@ const newProductController = async (req, res, next) => {
       imageFileName = `${nanoid(24)}${extension}`;
 
       await image.toFile(path.join(uploadsDir, imageFileName));
+
+      product_image = imageFileName;
     }
 
     const id = await createProduct(
       product_title,
-      imageFileName,
+      product_image,
       category,
       price,
       description,
@@ -53,7 +56,7 @@ const newProductController = async (req, res, next) => {
       id,
       data: {
         product_title,
-        imageFileName,
+        product_image,
         category,
         price,
         description,

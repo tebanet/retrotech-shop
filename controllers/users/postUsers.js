@@ -9,11 +9,11 @@ const { v4: uuidv4 } = require('uuid');
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 //FRONTEND
-const FRONT =
+const HOST =
   'http://' +
-  (process.env.FRONT_HOST || 'localhost') +
+  (process.env.HOST || 'localhost') +
   ':' +
-  (process.env.FRONT_PORT || 5137);
+  (process.env.PORT || 3000);
 
 const postUsers = async (req, res, next) => {
   try {
@@ -27,7 +27,7 @@ const postUsers = async (req, res, next) => {
 
     const registrationCode = crypto.randomUUID();
 
-    const defaultUserPic = `${FRONT}/profile_pics/default_profile_pic.webp`;
+    const defaultUserPic = `${HOST}/profile_pics/default_profile_pic.webp`;
 
     const userId = await insertUser({
       id,
