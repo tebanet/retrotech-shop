@@ -43,17 +43,14 @@ const getUserOffers = require('./controllers/users/getUserOffers.js');
 const getUnrated = require('./controllers/users/getUnrated.js');
 
 // Products controllers
-const getProductByName = require('./controllers/products/getProductByName.js');
-const getProductByCategoryLike = require('./controllers/products/getProductByCategory.js');
 const getSingleProduct = require('./controllers/products/getSingleProduct.js');
 const getProducts = require('./controllers/products/getProducts.js');
 const newProduct = require('./controllers/products/newProduct.js');
 const deletesingleProduct = require('./controllers/products/deleteProduct.js');
 const postOrder = require('./controllers/products/postOrder.js');
 const getProductByCategory = require('./controllers/products/productByCategory.js');
-const getProductByPrice = require('./controllers/products/getProductByPrice.js');
-const getProductByLocation = require('./controllers/products/getProductByLocation.js');
 const getOrderInfo = require('./controllers/users/getOrderInfo.js');
+const getProductByFilter = require('./controllers/products/getProductByFilter.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -94,10 +91,7 @@ app.get('/', getProducts);
 app.get('/category/:category', getProductByCategory);
 app.get('/products/:id', getSingleProduct);
 app.delete('/products/:id', authUser, deletesingleProduct);
-app.get('/search/name/:letter', getProductByName);
-app.get('/search/price/:min-:max', getProductByPrice);
-app.get('/search/category/:letter', getProductByCategoryLike);
-app.get('/search/location/:letter', getProductByLocation);
+app.get('/search/', getProductByFilter);
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));

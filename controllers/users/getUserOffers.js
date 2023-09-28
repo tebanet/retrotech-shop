@@ -24,7 +24,10 @@ const getUserOffers = async (req, res, next) => {
       orders: orders,
     });
   } catch (error) {
-    next(error);
+    res.send({
+      error: '400',
+      message: 'No tienes ofertas de compra',
+    });
   }
 };
 
