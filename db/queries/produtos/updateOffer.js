@@ -14,7 +14,7 @@ const updateOffer = async (
 
   const [resultExists] = await connection.query(
     `
-    SELECT * FROM orders WHERE orderId = ?
+    SELECT * FROM orders WHERE order_id = ?
     `,
     [order_id]
   );
@@ -25,7 +25,7 @@ const updateOffer = async (
 
   const [resultStatus] = await connection.query(
     `
-    SELECT order_status FROM orders WHERE orderId = ?
+    SELECT order_status FROM orders WHERE order_id = ?
     `,
     [order_id]
   );
@@ -39,7 +39,7 @@ const updateOffer = async (
 
   const [result] = await connection.query(
     `
-        UPDATE orders SET order_status = ?, delivery_date = ?, delivery_place = ?, delivery_status = ? WHERE order_status IN ('accepted', 'pending') AND orderId = ?;
+        UPDATE orders SET order_status = ?, delivery_date = ?, delivery_place = ?, delivery_status = ? WHERE order_status IN ('accepted', 'pending') AND order_id = ?;
             `,
     [order_status, delivery_date, delivery_place, delivery_status, order_id]
   );
@@ -47,14 +47,21 @@ const updateOffer = async (
   if (order_status == 'accepted') {
     const [id_product] = await connection.query(
       `
-        SELECT id_product FROM orders WHERE orderId = ?;
+        SELECT id_product FROM orders WHERE order_id = ?;
       `,
       [order_id]
     );
 
     const [resultDenyOthers] = await connection.query(
       `
-      UPDATE orders SET order_status = 'rejected' WHERE orderId != ? AND id_product = ?;
+      UPDATE orders SET order_status = 'rejected' WHERE order_id != ? AND id_product = ?;
+      `,
+      [order_id, id_product[0].id_product]
+    );
+
+    const [sold] = await connection.query(
+      `
+      UPDATE product SET status = 'sold out' WHERE product_id = ?;
       `,
       [order_id, id_product[0].id_product]
     );

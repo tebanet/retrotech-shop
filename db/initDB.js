@@ -68,7 +68,7 @@ const initDb = async () => {
         message VARCHAR(100),
         delivery_status ENUM('delivered', 'bounced', 'delayed'),
         delivery_date DATETIME,
-        delivery_place VARCHAR(50) NOT NULL,
+        delivery_place VARCHAR(50),
         FOREIGN KEY (id_buyer) REFERENCES users(id),
         FOREIGN KEY (id_seller) REFERENCES users(id),
         FOREIGN KEY (id_product) REFERENCES product(product_id)

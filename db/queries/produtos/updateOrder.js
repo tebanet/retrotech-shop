@@ -7,14 +7,14 @@ const updateOrder = async (userId, order_id) => {
 
   const [resultExists] = await connection.query(
     `
-    SELECT * FROM orders WHERE orderId = ?
+    SELECT * FROM orders WHERE order_id = ?
     `,
     [order_id]
   );
 
   const [orderCancelled] = await connection.query(
     `
-    SELECT order_status FROM orders WHERE orderId = ?
+    SELECT order_status FROM orders WHERE order_id = ?
     `,
     [order_id]
   );
@@ -29,7 +29,7 @@ const updateOrder = async (userId, order_id) => {
 
   const [checkUserOwnership] = await connection.query(
     `
-    SELECT users.id FROM orders INNER JOIN users ON users.id = orders.id_buyer WHERE orders.orderId = ?
+    SELECT users.id FROM orders INNER JOIN users ON users.id = orders.id_buyer WHERE orders.order_id = ?
     `,
     [order_id]
   );
@@ -40,7 +40,7 @@ const updateOrder = async (userId, order_id) => {
 
   const [result] = await connection.query(
     `
-        UPDATE orders SET order_status = 'rejected' WHERE order_status = 'pending' AND orderId = ?;
+        UPDATE orders SET order_status = 'rejected' WHERE order_status = 'pending' AND order_id = ?;
             `,
     [order_id]
   );
