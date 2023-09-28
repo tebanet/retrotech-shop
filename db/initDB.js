@@ -144,12 +144,12 @@ const initDb = async () => {
     await pool.query(`
     INSERT INTO product(product_title, product_image, category, description, price, status, place_of_sale, location, id_seller)
 VALUES
-('Commodore 64', 'https://fakeimg.pl/350x200', 'videogame', 'El legendario Commodore 64 de los años 80.', 199.99, 'available', 'online', 'Andalucía', '30b21b1f-f87c-33cd-9dd0-b359ecdee060'),
-('Atari 2600', 'https://fakeimg.pl/350x200', 'videogame', 'La icónica consola Atari 2600 de los años 70.', 149.99, 'available', 'online', 'Catalunya', 'a38b2f6a-4e4d-336b-be30-087b824cc388'),
-('Walkman Sony', 'https://fakeimg.pl/350x200', 'accessories', 'El clásico Walkman de Sony de los años 80.', 49.99, 'sold out', 'delivery', 'Comunitat Valenciana', '86b691a8-3512-3317-98a7-457e9178bb19'),
-('Compaq Presario', 'https://fakeimg.pl/350x200', 'pc', 'El computador Compaq Presario de los años 90.', 599.99, 'available', 'online', 'Madrid', 'b2235cbf-9b37-3b1d-88e4-3e0e2c8653da'),
-('Polaroid SX-70', 'https://fakeimg.pl/350x200', 'photography', 'La cámara Polaroid SX-70 de los años 70.', 129.99, 'reserved', 'online', 'Balears', 'd6d1e655-c06a-3841-bf30-bd05d3440866'),
-('Nintendo Entertainment System', 'https://fakeimg.pl/350x200', 'videogame', 'La consola NES de Nintendo de los años 80.', 179.99, 'available', 'online', 'Galicia', 'e109669d-ee08-3273-8882-1047ffbc4d29'),
+('Commodore 64', 'Commodore64.jpg', 'videogame', 'El legendario Commodore 64 de los años 80.', 199.99, 'available', 'online', 'Andalucía', '30b21b1f-f87c-33cd-9dd0-b359ecdee060'),
+('Atari 2600', 'Atari2600.webp', 'videogame', 'La icónica consola Atari 2600 de los años 70.', 149.99, 'available', 'online', 'Catalunya', 'a38b2f6a-4e4d-336b-be30-087b824cc388'),
+('Walkman Sony', 'WalkmanSony.webp', 'accessories', 'El clásico Walkman de Sony de los años 80.', 49.99, 'sold out', 'delivery', 'Comunitat Valenciana', '86b691a8-3512-3317-98a7-457e9178bb19'),
+('Compaq Presario', 'CompaqPresario.jpg', 'pc', 'El computador Compaq Presario de los años 90.', 599.99, 'available', 'online', 'Madrid', 'b2235cbf-9b37-3b1d-88e4-3e0e2c8653da'),
+('Polaroid SX-70', 'PolaroidSX70.webp', 'photography', 'La cámara Polaroid SX-70 de los años 70.', 129.99, 'reserved', 'online', 'Balears', 'd6d1e655-c06a-3841-bf30-bd05d3440866'),
+('Nintendo Entertainment System', 'NintendoEntertainmentSystem.webp', 'videogame', 'La consola NES de Nintendo de los años 80.', 179.99, 'available', 'online', 'Galicia', 'e109669d-ee08-3273-8882-1047ffbc4d29'),
 ('Sony Trinitron TV', 'https://fakeimg.pl/350x200', 'accessories', 'El televisor Sony Trinitron de los años 90.', 249.99, 'available', 'online', 'Aragón', 'f6dccfe7-fbcd-345c-a716-bd12adc43c4e'),
 ('Apple Macintosh', 'https://fakeimg.pl/350x200', 'pc', 'El revolucionario Apple Macintosh de los años 80.', 299.99, 'sold out', 'delivery', 'Cantabria', 'b8c44bf6-d301-4d28-b674-8eb1269a3f2b'),
 ('VHS Player', 'https://fakeimg.pl/350x200', 'accessories', 'El reproductor de cintas VHS de los años 80.', 79.99, 'available', 'online', 'Extremadura', '27cc2c2d-2046-3231-9b8b-5055b97d7c66'),

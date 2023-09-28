@@ -6,7 +6,7 @@ const addProductImage = async (userId, resizedImage) => {
 
     const [result] = await pool.query(
       `
-      UPDATE users SET profile_pic = ?
+      UPDATE products SET product_image = ?
       WHERE id = ?
     `,
       [resizedImage, userId]

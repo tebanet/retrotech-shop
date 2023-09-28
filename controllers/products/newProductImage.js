@@ -12,21 +12,18 @@ const HOST =
 
 async function newProductImage(req, res, next) {
   try {
-    const token = req.headers.authorization;
-    const decodedToken = await jwt.verify(token, process.env.SECRET);
-    const userId = decodedToken.id;
-
-    const directory = path.join(__dirname, '..', '..', 'profile_pics');
+    const { product_id } = req.body;
+    const directory = path.join(__dirname, '..', '..', 'uploads');
 
     await createPathIfNotExists(directory);
 
     const originalFileName = req.files.profile_pic.name;
     const extension = path.extname(originalFileName);
-    const resizedImage = `Profile_Pic_${userId}${extension}`;
+    const resizedImage = `Product_${id}${extension}`;
 
     if (req.files && req.files.profile_pic) {
       await sharp(req.files.profile_pic.data)
-        .resize(200, 200)
+        .resize(800, 600)
         .toFile(path.join(directory, resizedImage), (err, info) => {
           if (err) {
             console.error(err);
@@ -36,15 +33,15 @@ async function newProductImage(req, res, next) {
         });
     }
 
-    const picURL = `${HOST}/profile_pics/${resizedImage}`;
+    const picURL = `${HOST}/uploads/${id}/${resizedImage}`;
 
-    const rowsAffected = await addProductImage(userId, picURL);
+    const rowsAffected = await addProductImage(product_id, picURL);
     if (rowsAffected === 0) {
       return res
         .status(400)
         .json({ error: 'No hay ninguna imagen para actualizar' });
     }
-    return res.json({ userId, picURL });
+    return res.json({ product_id, picURL });
   } catch (error) {
     next(error);
   }
