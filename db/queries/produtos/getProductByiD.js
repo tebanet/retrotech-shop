@@ -9,7 +9,7 @@ const getProductByiD = async (id) => {
 
     const [result] = await connection.query(
       `
-      SELECT product.*, users.username
+      SELECT product.*, users.username, users.profile_pic
       FROM product
       JOIN users ON product.id_seller = users.id
       WHERE product_id= ?
