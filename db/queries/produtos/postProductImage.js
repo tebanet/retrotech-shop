@@ -1,15 +1,15 @@
 const getPool = require('../../getDB.js');
 
-const addProductImage = async (userId, resizedImage) => {
+const addProductImage = async (resizedImage, product_id) => {
   try {
     const pool = await getPool();
 
     const [result] = await pool.query(
       `
-      UPDATE products SET product_image = ?
-      WHERE id = ?
+      UPDATE product SET product_image = ?
+      WHERE product_id = ?
     `,
-      [resizedImage, userId]
+      [resizedImage, product_id]
     );
 
     return result.affectedRows;

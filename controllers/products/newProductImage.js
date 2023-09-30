@@ -4,12 +4,6 @@ const sharp = require('sharp');
 const { createPathIfNotExists } = require('../../helpers/generateError');
 const addProductImage = require('../../db/queries/produtos/postProductImage');
 
-const HOST =
-  'http://' +
-  (process.env.HOST || 'localhost') +
-  ':' +
-  (process.env.PORT || 3000);
-
 async function newProductImage(req, res, next) {
   try {
     const { product_id } = req.body;
@@ -17,13 +11,13 @@ async function newProductImage(req, res, next) {
 
     await createPathIfNotExists(directory);
 
-    const originalFileName = req.files.profile_pic.name;
+    const originalFileName = req.files.product_image.name;
     const extension = path.extname(originalFileName);
-    const resizedImage = `Product_${id}${extension}`;
+    const resizedImage = `Product_${product_id}${extension}`;
 
-    if (req.files && req.files.profile_pic) {
-      await sharp(req.files.profile_pic.data)
-        .resize(800, 600)
+    if (req.files && req.files.product_image) {
+      await sharp(req.files.product_image.data)
+        .resize(1024, 768)
         .toFile(path.join(directory, resizedImage), (err, info) => {
           if (err) {
             console.error(err);
@@ -33,15 +27,13 @@ async function newProductImage(req, res, next) {
         });
     }
 
-    const picURL = `${HOST}/uploads/${id}/${resizedImage}`;
-
-    const rowsAffected = await addProductImage(product_id, picURL);
+    const rowsAffected = await addProductImage(resizedImage, product_id);
     if (rowsAffected === 0) {
       return res
         .status(400)
         .json({ error: 'No hay ninguna imagen para actualizar' });
     }
-    return res.json({ product_id, picURL });
+    return res.json({ resizedImage, product_id });
   } catch (error) {
     next(error);
   }
