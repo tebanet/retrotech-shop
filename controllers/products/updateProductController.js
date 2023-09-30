@@ -36,7 +36,11 @@ const updateProductController = async (req, res, next) => {
         .status(400)
         .json({ error: 'No hay ningún dato para actualizar' });
     }
-    return res.json(updateProductInfo);
+
+    res.status(200).send({
+      status: 'ok',
+      data: { updateProductInfo },
+    });
   } catch (error) {
     next(error);
   }

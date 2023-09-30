@@ -16,27 +16,39 @@ const updateProduct = async (
     const setClauses = [];
     const values = [];
 
-    if (product_title !== undefined) {
+    if (
+      product_title !== undefined &&
+      product_title !== null &&
+      product_title !== ''
+    ) {
       setClauses.push('product_title = ?');
       values.push(product_title);
     }
-    if (category !== undefined) {
+    if (category !== undefined && category !== null && category !== '') {
       setClauses.push('category = ?');
       values.push(category);
     }
-    if (price !== undefined) {
+    if (price !== undefined && price !== null && price !== '') {
       setClauses.push('price = ?');
       values.push(price);
     }
-    if (description !== undefined) {
+    if (
+      description !== undefined &&
+      description !== null &&
+      description !== ''
+    ) {
       setClauses.push('description = ?');
       values.push(description);
     }
-    if (place_of_sale !== undefined) {
+    if (
+      place_of_sale !== undefined &&
+      description !== null &&
+      description !== ''
+    ) {
       setClauses.push('place_of_sale = ?');
       values.push(place_of_sale);
     }
-    if (location !== undefined) {
+    if (location !== undefined && description !== null && description !== '') {
       setClauses.push('location = ?');
       values.push(location);
     }
