@@ -3,6 +3,7 @@ const modifyUserProfilePic = require('../../db/queries/users/modifyUserProfilePi
 const path = require('path');
 const sharp = require('sharp');
 const { createPathIfNotExists } = require('../../helpers/generateError');
+const { randomUUID } = require('crypto');
 
 const HOST =
   'http://' +
@@ -15,6 +16,7 @@ async function updateUserProfilePic(req, res, next) {
     const token = req.headers.authorization;
     const decodedToken = await jwt.verify(token, process.env.SECRET);
     const userId = decodedToken.id;
+    const uuid = randomUUID();
 
     const directory = path.join(__dirname, '..', '..', 'profile_pics');
 
@@ -22,7 +24,7 @@ async function updateUserProfilePic(req, res, next) {
 
     const originalFileName = req.files.profile_pic.name;
     const extension = path.extname(originalFileName);
-    const resizedImage = `Profile_Pic_${userId}${extension}`;
+    const resizedImage = `${uuid}${extension}`;
 
     if (req.files && req.files.profile_pic) {
       await sharp(req.files.profile_pic.data)
@@ -31,7 +33,7 @@ async function updateUserProfilePic(req, res, next) {
           if (err) {
             console.error(err);
           } else {
-            console.log('Imagen comprimida y guardada:', info);
+            /* console.log('Imagen comprimida y guardada:', info) */
           }
         });
     }

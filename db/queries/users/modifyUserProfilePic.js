@@ -3,7 +3,6 @@ const getPool = require('../../getDB.js');
 const modifyUserProfilePic = async (userId, resizedImage) => {
   try {
     const pool = await getPool();
-
     const [result] = await pool.query(
       `
       UPDATE users SET profile_pic = ?
