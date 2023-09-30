@@ -1,5 +1,4 @@
 const { createProduct } = require('../../db/queries/produtos/createProduct.js');
-
 const newProductSchema = require('../../schemas/users/newProductSchema.js');
 
 const newProductController = async (req, res, next) => {
@@ -41,7 +40,6 @@ const newProductController = async (req, res, next) => {
       },
       message: `${product_title} se ha publicado con éxito.`,
     });
-    console.log(res.data);
   } catch (error) {
     next(error);
   }

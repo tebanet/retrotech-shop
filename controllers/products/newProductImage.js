@@ -27,7 +27,7 @@ async function newProductImage(req, res, next) {
         });
     }
 
-    const rowsAffected = await addProductImage(resizedImage, product_id);
+    const rowsAffected = await addProductImage(product_id, resizedImage);
     if (rowsAffected === 0) {
       return res
         .status(400)

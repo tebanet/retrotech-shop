@@ -1,6 +1,6 @@
 const getPool = require('../../getDB.js');
 
-const addProductImage = async (resizedImage, product_id) => {
+const addProductImage = async (product_id, resizedImage) => {
   try {
     const pool = await getPool();
 

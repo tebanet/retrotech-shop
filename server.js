@@ -52,6 +52,8 @@ const getProductByCategory = require('./controllers/products/productByCategory.j
 const getOrderInfo = require('./controllers/users/getOrderInfo.js');
 const getProductByFilter = require('./controllers/products/getProductByFilter.js');
 const newProductImage = require('./controllers/products/newProductImage.js');
+const getLastUserProduct = require('./controllers/users/getLastUserProduct.js');
+const updateProductController = require('./controllers/products/updateProductController.js');
 
 // middleware que reconhece o ficheiro binário
 app.use(fileUpload());
@@ -88,12 +90,14 @@ app.post('/users/:username/my-orders/:orderID/rate', authUser, rateOrder); // Va
 
 // Rutas de Produtos
 app.post('/products/new', authUser, newProduct); //middleware associado para autenticação
+app.put('/products/update/:id', authUser, updateProductController);
 app.post('/products/new-image', authUser, newProductImage);
 app.get('/', getProducts);
 app.get('/category/:category', getProductByCategory);
 app.get('/products/:id', getSingleProduct);
 app.delete('/products/:id', authUser, deletesingleProduct);
 app.get('/search/', getProductByFilter);
+app.get('/products/user/:id_seller', getLastUserProduct);
 
 // Middleware para mostrar logs request
 app.use(morgan('dev'));
