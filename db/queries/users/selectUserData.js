@@ -6,6 +6,7 @@ const selectUserData = async (username) => {
 
   const [user] = await pool.query(
     `SELECT
+    id,
     username,
     email,
     profile_pic,
