@@ -36,6 +36,114 @@
 					"response": []
 				},
 				{
+					"name": "sendRecoveryToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tebane@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/reset-password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkEmail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tebane@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/check-email",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"check-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tebane@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/check-email",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"check-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"vkx1ySOep0pjLhdzOCxqLuz4KZ5TjAmj\",\r\n    \"newPassword\": \"1234bCdE\",\r\n    \"repeatPassword\": \"1234bCdE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/change-password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "login",
 					"event": [
 						{
@@ -55,7 +163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"tu@correo.es\",\r\n    \"password\": \"abcD1234\"\r\n}",
+							"raw": "{\r\n    \"email\": \"tebane@gmail.com\",\r\n    \"password\": \"Pass1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -77,6 +185,150 @@
 				},
 				{
 					"name": "putUpdateProfile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"description": "Email",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"description": "username",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "abcD1234",
+									"description": "Obligatoria siempre",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "",
+									"description": "bio",
+									"type": "text"
+								},
+								{
+									"key": "profile_pic",
+									"description": "pfp",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "",
+									"description": "address",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/update/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putUpdateProfilePic",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"description": "Email",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"description": "username",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "abcD1234",
+									"description": "Obligatoria siempre",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "",
+									"description": "bio",
+									"type": "text"
+								},
+								{
+									"key": "profile_pic",
+									"description": "pfp",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "",
+									"description": "address",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/update/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putUpdateProfileInfo",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -207,13 +459,32 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/product/1",
+							"raw": "{{URL}}/product/",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"product",
-								"1"
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLastUserProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/user/acac4b95-9a74-4b0b-afe2-6f6e39d1c318",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"user",
+								"acac4b95-9a74-4b0b-afe2-6f6e39d1c318"
 							]
 						}
 					},
@@ -260,11 +531,6 @@
 									"type": "text"
 								},
 								{
-									"key": "product_image",
-									"type": "file",
-									"src": "/C:/Users/Kaysera/Pictures/Fod-XPvaQAAeJRH.jfif"
-								},
-								{
 									"key": "category",
 									"value": "pc",
 									"type": "text"
@@ -303,6 +569,111 @@
 							],
 							"path": [
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProductInfo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_title",
+									"value": "Commodore 128",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "pc",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "346",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Este ya no es un texto super chulo que no se cuantos caracteres tienee.",
+									"type": "text"
+								},
+								{
+									"key": "place_of_sale",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/products/update/58",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"update",
+								"58"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postProductImage",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "59",
+									"type": "text"
+								},
+								{
+									"key": "product_image",
+									"type": "file",
+									"src": "/C:/Users/teban/Desktop/15.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/products/new-image",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"new-image"
 							]
 						}
 					},
