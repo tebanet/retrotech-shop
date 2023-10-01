@@ -9,17 +9,9 @@ const { v4: uuidv4 } = require('uuid');
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 //FRONTEND
-const HOST =
-  'http://' +
-  (process.env.HOST || 'localhost') +
-  ':' +
-  (process.env.PORT || 3000);
+const HOST = 'https://retrotechshop.alwaysdata.net';
 
-const FRONT =
-  'http://' +
-  (process.env.FRONT_HOST || 'localhost') +
-  ':' +
-  (process.env.FRONT_PORT || 5173);
+const FRONT = 'https://retrotechshop.vercel.app';
 
 const postUsers = async (req, res, next) => {
   try {
