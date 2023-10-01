@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const app = express();
+const { port } = require('./config.js');
+
 const corsMiddleware = cors({
   origin: [
     'https://retrotech-shop.com',
@@ -26,8 +28,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-const { port } = require('./config.js');
 
 // Middleware de autenticação
 const { authUser } = require('./middlewares/auth.js');
