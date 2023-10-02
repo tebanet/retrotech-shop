@@ -9,7 +9,7 @@ const cors = require('cors');
 const app = express();
 const { port } = require('./config.js');
 
-const corsMiddleware = cors({
+/*const corsMiddleware = cors({
   origin: [
     'https://retrotech-shop.com',
     'http://localhost:5173',
@@ -18,7 +18,9 @@ const corsMiddleware = cors({
   ],
 });
 
-app.use(corsMiddleware);
+app.use(corsMiddleware);*/
+
+app.use(cors());
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://retrotechshop.vercel.app');
