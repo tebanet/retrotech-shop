@@ -12,7 +12,9 @@ const getUserOffersById = async (userId) => {
       product.price,
       users.username AS buyer,
       orders.order_status,
-      orders.order_date
+      orders.order_date,
+      orders.message,
+      orders.delivery_place
     FROM product
       INNER JOIN orders ON product.product_id = orders.id_product
       INNER JOIN users ON orders.id_buyer = users.id

@@ -13,7 +13,7 @@ const getOrderInfoByParams = async (userId, orderId) => {
     product.location,
     order_date,
     product.description,
-    users.username
+    users.username,
     FROM orders
     JOIN product ON product.product_id = orders.id_product
     LEFT JOIN users ON users.id = orders.id_seller

@@ -39,7 +39,7 @@ const updateOffer = async (
 
   const [result] = await connection.query(
     `
-        UPDATE orders SET order_status = ?, delivery_date = ?, delivery_place = ?, delivery_status = ? WHERE order_status IN ('accepted', 'pending') AND order_id = ?;
+        UPDATE orders SET order_status = ?, delivery_date = ?, delivery_place = ?, delivery_status = ? WHERE order_status IN ('pending') AND order_id = ?;
             `,
     [order_status, delivery_date, delivery_place, delivery_status, order_id]
   );
@@ -52,16 +52,16 @@ const updateOffer = async (
       [order_id]
     );
 
-    const [resultDenyOthers] = await connection.query(
-      `
-      UPDATE orders SET order_status = 'rejected' WHERE order_id != ? AND id_product = ?;
-      `,
-      [order_id, id_product[0].id_product]
-    );
-
     const [sold] = await connection.query(
       `
       UPDATE product SET status = 'sold out' WHERE product_id = ?;
+      `,
+      [id_product[0].id_product]
+    );
+
+    const [resultDenyOthers] = await connection.query(
+      `
+      UPDATE orders SET order_status = 'rejected' WHERE order_id != ? AND id_product = ?;
       `,
       [order_id, id_product[0].id_product]
     );
