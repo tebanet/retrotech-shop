@@ -9,17 +9,6 @@ const cors = require('cors');
 const app = express();
 const { port } = require('./config.js');
 
-/*const corsMiddleware = cors({
-  origin: [
-    'https://retrotech-shop.com',
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'https://retrotechshop.vercel.app/',
-  ],
-});
-
-app.use(corsMiddleware);*/
-
 app.use(cors());
 
 app.use(function (req, res, next) {
