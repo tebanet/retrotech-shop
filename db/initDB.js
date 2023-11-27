@@ -21,7 +21,7 @@ const initDb = async () => {
     console.log('Creando tabla de usuarios');
     await pool.query(
       `CREATE TABLE users (
-        id VARCHAR(50) PRIMARY KEY UNIQUE NOT NULL,
+        id VARCHAR(50) PRIMARY KEY NOT NULL,
         username VARCHAR(30) UNIQUE NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
@@ -95,6 +95,7 @@ const initDb = async () => {
 
     const defaultPassword = 'Pass1234';
     const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+    console.log(hashedPassword);
 
     console.log('Creando administradores en la tabla users');
     await pool.query(`

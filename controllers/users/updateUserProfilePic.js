@@ -5,8 +5,8 @@ const sharp = require('sharp');
 const { createPathIfNotExists } = require('../../helpers/generateError');
 const { randomUUID } = require('crypto');
 
-//const HOST = 'https://retrotechshop.alwaysdata.net';
-const HOST = 'http://' + (process.env.HOST || 'localhost') + ':' + (process.env.PORT || 3000);
+const HOST = 'https://retrotech-shop.alwaysdata.net';
+//const HOST = 'http://' + (process.env.HOST || 'localhost') + ':' + (process.env.PORT || 3000);
 
 async function updateUserProfilePic(req, res, next) {
   try {
