@@ -9,8 +9,8 @@ const { v4: uuidv4 } = require('uuid');
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 //FRONTEND;
-const HOST = 'https://retrotech-shop.alwaysdata.net';
-const FRONT = 'https://retrotech-shop-frontend.vercel.app';
+const HOST = 'http://retrotech-shop.alwaysdata.net';
+const FRONT = 'http://retrotech-shop-frontend.vercel.app';
 
 //FRONTEND LOCAL
 //const HOST = 'http://' +(process.env.HOST || 'localhost') +':' +(process.env.PORT || 3000);
