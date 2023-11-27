@@ -2,7 +2,7 @@ const sgMail = require('@sendgrid/mail');
 const { reset } = require('nodemon');
 
 //FRONTEND
-const FRONT = 'https://retrotechshop.vercel.app';
+const FRONT = 'https://retrotech-shop-frontend.vercel.app';
 async function sendResetEmail(email, resetToken) {
   try {
     // SendGrid Key
